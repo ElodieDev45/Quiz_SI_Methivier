@@ -1,0 +1,266 @@
+[
+  {
+    "id": "q1",
+    "category": "Serveurs",
+    "question": "Combien de serveurs gérons-nous dans notre infrastructure ?",
+    "options": {
+      "a": "Environ 5",
+      "b": "Environ 11",
+      "c": "Environ 20",
+      "d": "Nous n'avons pas de serveurs"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "id": "q2",
+    "category": "Serveurs",
+    "question": "Parmi les types de serveurs suivants, lequel est principalement utilisé pour stocker des fichiers ?",
+    "options": {
+      "a": "Serveur AD",
+      "b": "Serveur NAS",
+      "c": "Serveur de Sauvegarde",
+      "d": "Serveur TSE/RDS"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "id": "q3",
+    "category": "Serveurs",
+    "question": "À quoi sert principalement un serveur TSE/RDS ?",
+    "options": {
+      "a": "À gérer les identités des utilisateurs",
+      "b": "À stocker les sauvegardes de données",
+      "c": "À permettre l'accès à des applications et des bureaux à distance",
+      "d": "À héberger le site web de l'entreprise"
+    },
+    "correctAnswer": "c"
+  },
+  {
+    "id": "q4",
+    "category": "Serveurs",
+    "question": "Quel système d'exploitation est utilisé sur nos serveurs principaux ?",
+    "options": {
+      "a": "Windows 10 Professionnel",
+      "b": "Windows Server 2022 Datacenter",
+      "c": "Linux Ubuntu",
+      "d": "macOS Server"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "id": "q5",
+    "category": "Nos Postes de Travail",
+    "question": "Combien de postes de travail (PC fixes et portables) sont en service dans notre entreprise ?",
+    "options": {
+      "a": "Moins de 100",
+      "b": "Environ 250",
+      "c": "Plus de 500",
+      "d": "Le nombre varie constamment"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "id": "q6",
+    "category": "Nos Postes de Travail",
+    "question": "Quels systèmes d'exploitation équipent la majorité de nos postes de travail ?",
+    "options": {
+      "a": "Principalement macOS",
+      "b": "Uniquement Windows 7",
+      "c": "Windows 10 et 11 Professionnel",
+      "d": "Des versions Entreprise de Windows"
+    },
+    "correctAnswer": "c"
+  },
+  {
+    "id": "q7",
+    "category": "Nos Postes de Travail",
+    "question": "Qu'est-ce qu'un compte utilisateur sur votre ordinateur ou dans le réseau de l'entreprise ?",
+    "options": {
+      "a": "Un programme pour faire des calculs",
+      "b": "Un identifiant unique avec mot de passe qui donne accès à vos documents, logiciels et paramètres",
+      "c": "Un service de messagerie instantanée",
+      "d": "Le nom de l'ordinateur"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "id": "q8",
+    "category": "Nos Postes de Travail",
+    "question": "Comment changer son mot de passe Windows ?",
+    "options": {
+      "a": "Redémarrer l'ordinateur",
+      "b": "Ctrl + Alt + Suppr puis Modifier un mot de passe",
+      "c": "Aller dans le Panneau de configuration",
+      "d": "Les réponses B et C sont correctes"
+    },
+    "correctAnswer": "d"
+  },
+  {
+    "id": "q9",
+    "category": "Accessoires et Windows",
+    "question": "Quel outil intégré à Windows permet de réaliser rapidement une capture d'écran ?",
+    "options": {
+      "a": "Paint",
+      "b": "L'Outil Capture d'écran",
+      "c": "Word",
+      "d": "Le Gestionnaire des tâches"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "id": "q10",
+    "category": "Accessoires et Windows",
+    "question": "Pourquoi est-il important d'effectuer les mises à jour de Windows et des pilotes ?",
+    "options": {
+      "a": "Pour ralentir l'ordinateur",
+      "b": "Pour améliorer la sécurité et la stabilité",
+      "c": "Pour changer l'interface graphique",
+      "d": "Pour consommer plus d'énergie"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "id": "q11",
+    "category": "Accessoires et Windows",
+    "question": "Où chercher rapidement une application ou un fichier sur votre PC ?",
+    "options": {
+      "a": "Le Bureau",
+      "b": "La barre des tâches",
+      "c": "La barre de recherche",
+      "d": "Le Gestionnaire des tâches"
+    },
+    "correctAnswer": "c"
+  },
+  {
+    "id": "q12",
+    "category": "Accessoires et Windows",
+    "question": "Quel est le raccourci clavier pour copier un élément sélectionné ?",
+    "options": {
+      "a": "Ctrl + X",
+      "b": "Ctrl + V",
+      "c": "Ctrl + C",
+      "d": "Ctrl + Z"
+    },
+    "correctAnswer": "c"
+  },
+  {
+    "id": "q13",
+    "category": "Accessoires et Windows",
+    "question": "Quel est le raccourci clavier pour basculer entre plusieurs fenêtres ouvertes ?",
+    "options": {
+      "a": "Alt + F4",
+      "b": "Ctrl + S",
+      "c": "Alt + Tab",
+      "d": "Windows + D"
+    },
+    "correctAnswer": "c"
+  },
+  {
+    "id": "q14",
+    "category": "Accessoires et Windows",
+    "question": "Comment fermer une application qui ne répond plus ?",
+    "options": {
+      "a": "Redémarrer l'ordinateur",
+      "b": "Utiliser Ctrl + Alt + Suppr ou clic droit sur la barre des tâches puis le Gestionnaire des tâches",
+      "c": "Attendre qu'elle se ferme toute seule",
+      "d": "Se déconnecter et se reconnecter"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "id": "q15",
+    "category": "Accessoires et Windows",
+    "question": "Pourquoi faut-il fermer ses applications et éteindre son ordinateur le soir ?",
+    "options": {
+      "a": "Eviter une surchauffe de l’ordinateur",
+      "b": "Empêcher le piratage informatique",
+      "c": "Permettre une sauvegarde achevée",
+      "d": "Je ne sais pas"
+    },
+    "correctAnswer": "c"
+  },
+  {
+    "id": "q16",
+    "category": "Imprimantes",
+    "question": "Nos imprimantes permettent-elles de scanner des documents ?",
+    "options": {
+      "a": "Oui, toutes",
+      "b": "Non, aucune",
+      "c": "Seulement quelques modèles",
+      "d": "Je ne sais pas"
+    },
+    "correctAnswer": "c"
+  },
+  {
+    "id": "q17",
+    "category": "Imprimantes",
+    "question": "Fonctionnalité pratique du scan pour partager des documents ?",
+    "options": {
+      "a": "Scan to Music",
+      "b": "Scan to Mail/Folder",
+      "c": "Scan to Game",
+      "d": "Scan to Print"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "id": "q18",
+    "category": "Imprimantes",
+    "question": "Fréquence d'utilisation des imprimantes dans les groupes de travail ?",
+    "options": {
+      "a": "Très faible",
+      "b": "Moyenne",
+      "c": "Très élevée",
+      "d": "Je n'imprime jamais"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "id": "q19",
+    "category": "Téléphonie",
+    "question": "Qu'est-ce qu'un numéro SDA ?",
+    "options": {
+      "a": "Numéro d'urgence",
+      "b": "Numéro direct attribué à un poste ou service",
+      "c": "Numéro de fax",
+      "d": "Numéro de mobile professionnel"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "id": "q20",
+    "category": "Téléphonie",
+    "question": "Combien de téléphones professionnels en service ?",
+    "options": {
+      "a": "Moins de 100",
+      "b": "Environ 224",
+      "c": "Plus de 300",
+      "d": "Aucun"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "id": "q21",
+    "category": "Cybersécurité",
+    "question": "Est-il recommandé d’enregistrer vos mots de passe dans le navigateur ?",
+    "options": {
+      "a": "Oui, c'est très pratique et sûr",
+      "b": "Oui, si l'ordinateur est protégé par mot de passe",
+      "c": "Non, ce n'est pas recommandé pour des raisons de sécurité",
+      "d": "Cela dépend du site"
+    },
+    "correctAnswer": "c"
+  },
+  {
+    "id": "q22",
+    "category": "Cybersécurité",
+    "question": "Que faire avec un mail suspect contenant un lien ou une pièce jointe ?",
+    "options": {
+      "a": "Ouvrir immédiatement",
+      "b": "Transférer à tous vos collègues",
+      "c": "Le signaler à votre support informatique et le supprimer",
+      "d": "Le marquer comme spam et l'ignorer"
+    },
+    "correctAnswer": "c"
+  }
+]

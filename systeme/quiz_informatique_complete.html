@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Connaissances de base en informatique</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>    
+    <div class="container">
+        <div class="header">
+            <h1>🖥️ Test de Connaissances Informatiques</h1>
+            <p>Évaluez vos compétences de base en informatique professionnelle</p>
+        </div>
+
+        <div class="quiz-content">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="question-counter">
+                Question <span id="currentQuestionNumber">1</span> sur <span id="totalQuestionsCount">0</span>
+            </div>
+
+            <div id="questionsContainer">
+            </div>
+
+            <div class="results" id="results">
+                <h2>Résultats du Quiz</h2>
+                <div class="score" id="finalScore">0/0</div>
+                <p id="scoreMessage"></p>
+                
+                <div class="category-breakdown" id="categoryBreakdown"></div>
+                
+                <div class="recommendations" id="recommendations"></div>
+                
+                <button class="btn btn-primary" onclick="restartQuiz()">Recommencer le quiz</button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" disabled>Précédent</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Suivant</button>
+                <button class="btn btn-primary" id="finishBtn" onclick="finishQuiz()" style="display: none;">Terminer</button>
+            </div>
+        </div>
+    </div>
+
+    <script
+        src="./js/script.js" defer>
+    </script>
+</body>
+</html>

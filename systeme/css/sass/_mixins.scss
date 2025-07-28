@@ -1,0 +1,22 @@
+// _mixins.scss
+// PARAMETRES DU DEGRADE
+@mixin gradient-bg($start-color, $end-color) { 
+    background: linear-gradient(135deg, $start-color 0%, $end-color 100%);
+}
+
+// PARAMETRE DES BOUTONS
+@mixin button-styles($bg-start, $bg-end, $text-color: $white-color) {
+    padding: 12px 30px;
+    border: none;
+    border-radius: $border-radius-btn; // Nécessite $border-radius-btn des variables
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: $text-color;
+    @include gradient-bg($bg-start, $bg-end);
+
+    &:hover {
+        background: linear-gradient(135deg, darken($bg-start, 10%), darken($bg-end, 10%));
+    }
+}

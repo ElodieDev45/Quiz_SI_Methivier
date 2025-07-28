@@ -1,0 +1,33 @@
+// _variables.scss
+
+// couleurs
+$primary-color: #3498db;
+$secondary-color: #2980b9;
+$tertiary-color: #95a5a6;
+$dark-color: #2c3e50;
+$light-blue-gradient-start: #667eea;
+$light-blue-gradient-end: #764ba2;
+$dark-blue-gradient-start: #2c3e50;
+$dark-blue-gradient-end: #3498db;
+$light-background: #f8f9fa;
+$white-color: white;
+$border-color: #e1e8ed;
+$hover-background: #f0f8ff;
+$selected-background: #ebf3fd;
+$text-color: #877f8d;
+$excellent-score-color: #27ae60;
+$good-score-color: #f39c12;
+$poor-score-color: #e74c3c;
+
+// fonts
+$font-stack: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+// dimensions
+$max-width: 800px;
+$padding-base: 20px;
+$padding-medium: 30px;
+$border-radius-base: 15px;
+$border-radius-small: 8px;
+$border-radius-btn: 25px;
+$box-shadow-large: 0 20px 40px rgba(0,0,0,0.1);
+$box-shadow-medium: 0 5px 15px rgba(0,0,0,0.1);
