@@ -34,7 +34,7 @@ if "%choix%"=="1" (
 
 if "%choix%"=="2" (
     echo 📖 Ouverture du fichier README...
-    start "" README.md
+    start "" "%~dp0README.html"
 )
 
 if "%choix%"=="3" (
