@@ -23,10 +23,10 @@ if "%choix%"=="1" (
     start "" cmd /c "sass --watch css/sass:css"
 
     echo 🔁 Surveillance du fichier Excel...
-    start "" cmd /c "cd /d %cd% && .venv\Scripts\activate && python Python/auto_convert.py"
+    start "" cmd /c "cd /d %cd% && .venv\Scripts\python.exe Python/auto_convert.py"
 
     echo 🌐 Démarrage du serveur local...
-    start "" cmd /c "cd /d %cd% && .venv\Scripts\activate && python server.py"
+    start "" cmd /c "cd /d %cd% && .venv\Scripts\python.exe server.py"
 
     echo 💡 Tous les services sont lancés dans des fenêtres indépendantes.
     pause

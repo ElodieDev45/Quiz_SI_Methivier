@@ -313,18 +313,32 @@ function logQuizSummaryToConsole() {
     console.table(summary);
     console.groupEnd();
 
-    // console.log("-----------------------------------------");
-    // console.log(" Détails de vos réponses :");
-    // console.log("-----------------------------------------");
-    // summary.forEach(item => {
-    //     console.log(`Question ${item["N° Question"]} : ${item["Intitulé Question"]}`);
-    //     console.log(`  Votre réponse : "${item["Votre Réponse"]}"`);
-    //     console.log(`  Réponse correcte : "${item["Réponse Correcte"]}"`);
-    //     console.log(`  Statut : ${item["Statut"]}`);
-    //     console.log("---");
-    // });
-    // console.log("-----------------------------------------");
 }
 
 // Initialise le quiz au chargement de la page
 document.addEventListener('DOMContentLoaded', loadQuestions);
+
+// Chargement automatique des métadonnées depuis config.json
+document.addEventListener("DOMContentLoaded", function () {
+      fetch("config.json")
+        .then(response => response.json())
+        .then(data => {
+          // Mise à jour du titre de la page
+          document.title = data["titre-principal"];
+
+          // Remplissage du <h1>
+          const titreElement = document.getElementById("titre-principal");
+          if (titreElement) {
+            titreElement.textContent = data["titre-principal"];
+          }
+
+          // Remplissage de la description
+          const descElement = document.getElementById("description-projet");
+          if (descElement) {
+            descElement.textContent = data["description-projet"];
+          }
+        })
+        .catch(error => {
+          console.error("❌ Erreur de chargement du fichier config.json :", error);
+        });
+    });

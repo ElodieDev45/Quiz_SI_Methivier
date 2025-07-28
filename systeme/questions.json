@@ -1,6 +1,6 @@
 [
   {
-    "id": "q1",
+    "id": "qq1",
     "category": "Serveurs",
     "question": "Combien de serveurs gérons-nous dans notre infrastructure ?",
     "options": {
@@ -12,7 +12,7 @@
     "correctAnswer": "b"
   },
   {
-    "id": "q2",
+    "id": "qq2",
     "category": "Serveurs",
     "question": "Parmi les types de serveurs suivants, lequel est principalement utilisé pour stocker des fichiers ?",
     "options": {
@@ -24,7 +24,7 @@
     "correctAnswer": "b"
   },
   {
-    "id": "q3",
+    "id": "qq3",
     "category": "Serveurs",
     "question": "À quoi sert principalement un serveur TSE/RDS ?",
     "options": {
@@ -36,7 +36,7 @@
     "correctAnswer": "c"
   },
   {
-    "id": "q4",
+    "id": "qq4",
     "category": "Serveurs",
     "question": "Quel système d'exploitation est utilisé sur nos serveurs principaux ?",
     "options": {
@@ -48,7 +48,7 @@
     "correctAnswer": "b"
   },
   {
-    "id": "q5",
+    "id": "qq5",
     "category": "Nos Postes de Travail",
     "question": "Combien de postes de travail (PC fixes et portables) sont en service dans notre entreprise ?",
     "options": {
@@ -60,7 +60,7 @@
     "correctAnswer": "b"
   },
   {
-    "id": "q6",
+    "id": "qq6",
     "category": "Nos Postes de Travail",
     "question": "Quels systèmes d'exploitation équipent la majorité de nos postes de travail ?",
     "options": {
@@ -72,7 +72,7 @@
     "correctAnswer": "c"
   },
   {
-    "id": "q7",
+    "id": "qq7",
     "category": "Nos Postes de Travail",
     "question": "Qu'est-ce qu'un compte utilisateur sur votre ordinateur ou dans le réseau de l'entreprise ?",
     "options": {
@@ -84,7 +84,7 @@
     "correctAnswer": "b"
   },
   {
-    "id": "q8",
+    "id": "qq8",
     "category": "Nos Postes de Travail",
     "question": "Comment changer son mot de passe Windows ?",
     "options": {
@@ -96,7 +96,7 @@
     "correctAnswer": "d"
   },
   {
-    "id": "q9",
+    "id": "qq9",
     "category": "Accessoires et Windows",
     "question": "Quel outil intégré à Windows permet de réaliser rapidement une capture d'écran ?",
     "options": {
@@ -108,7 +108,7 @@
     "correctAnswer": "b"
   },
   {
-    "id": "q10",
+    "id": "qq10",
     "category": "Accessoires et Windows",
     "question": "Pourquoi est-il important d'effectuer les mises à jour de Windows et des pilotes ?",
     "options": {
@@ -120,7 +120,7 @@
     "correctAnswer": "b"
   },
   {
-    "id": "q11",
+    "id": "qq11",
     "category": "Accessoires et Windows",
     "question": "Où chercher rapidement une application ou un fichier sur votre PC ?",
     "options": {
@@ -132,7 +132,7 @@
     "correctAnswer": "c"
   },
   {
-    "id": "q12",
+    "id": "qq12",
     "category": "Accessoires et Windows",
     "question": "Quel est le raccourci clavier pour copier un élément sélectionné ?",
     "options": {
@@ -144,7 +144,7 @@
     "correctAnswer": "c"
   },
   {
-    "id": "q13",
+    "id": "qq13",
     "category": "Accessoires et Windows",
     "question": "Quel est le raccourci clavier pour basculer entre plusieurs fenêtres ouvertes ?",
     "options": {
@@ -156,7 +156,7 @@
     "correctAnswer": "c"
   },
   {
-    "id": "q14",
+    "id": "qq14",
     "category": "Accessoires et Windows",
     "question": "Comment fermer une application qui ne répond plus ?",
     "options": {
@@ -168,7 +168,7 @@
     "correctAnswer": "b"
   },
   {
-    "id": "q15",
+    "id": "qq15",
     "category": "Accessoires et Windows",
     "question": "Pourquoi faut-il fermer ses applications et éteindre son ordinateur le soir ?",
     "options": {
@@ -180,7 +180,7 @@
     "correctAnswer": "c"
   },
   {
-    "id": "q16",
+    "id": "qq16",
     "category": "Imprimantes",
     "question": "Nos imprimantes permettent-elles de scanner des documents ?",
     "options": {
@@ -192,7 +192,7 @@
     "correctAnswer": "c"
   },
   {
-    "id": "q17",
+    "id": "qq17",
     "category": "Imprimantes",
     "question": "Fonctionnalité pratique du scan pour partager des documents ?",
     "options": {
@@ -204,7 +204,7 @@
     "correctAnswer": "b"
   },
   {
-    "id": "q18",
+    "id": "qq18",
     "category": "Imprimantes",
     "question": "Fréquence d'utilisation des imprimantes dans les groupes de travail ?",
     "options": {
@@ -216,7 +216,7 @@
     "correctAnswer": "b"
   },
   {
-    "id": "q19",
+    "id": "qq19",
     "category": "Téléphonie",
     "question": "Qu'est-ce qu'un numéro SDA ?",
     "options": {
@@ -228,7 +228,7 @@
     "correctAnswer": "b"
   },
   {
-    "id": "q20",
+    "id": "qq20",
     "category": "Téléphonie",
     "question": "Combien de téléphones professionnels en service ?",
     "options": {
@@ -240,7 +240,7 @@
     "correctAnswer": "b"
   },
   {
-    "id": "q21",
+    "id": "qq21",
     "category": "Cybersécurité",
     "question": "Est-il recommandé d’enregistrer vos mots de passe dans le navigateur ?",
     "options": {
@@ -252,7 +252,7 @@
     "correctAnswer": "c"
   },
   {
-    "id": "q22",
+    "id": "qq22",
     "category": "Cybersécurité",
     "question": "Que faire avec un mail suspect contenant un lien ou une pièce jointe ?",
     "options": {

@@ -18,7 +18,7 @@ python_exec = os.path.join(venv_dir, "Scripts", "python.exe")
 requirements = os.path.join(base_dir, ".venv", "requirements.txt")
 scss_input = os.path.join(base_dir, "css", "sass", "style.scss")
 scss_output = os.path.join(base_dir, "css", "style.css")
-html_path = os.path.join(base_dir, "quiz_informatique_complete.html")
+html_path = os.path.join(base_dir, "projet.html")
 convert_script = os.path.join(base_dir, "Python", "auto_convert.py")
 
 # ⚙️ 1. Créer l'environnement virtuel si nécessaire
