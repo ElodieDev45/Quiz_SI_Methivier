@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chargement du titre...</title>
     <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/main.js" defer type="module"></script>
 </head>
 
 <body>    
@@ -36,19 +37,16 @@
                 
                 <div class="recommendations" id="recommendations"></div>
                 
-                <button class="btn btn-primary" onclick="restartQuiz()">Recommencer le quiz</button>
+                <button class="btn btn-primary">Recommencer le quiz</button>
             </div>
 
             <div class="controls">
-                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" disabled>Précédent</button>
-                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Suivant</button>
-                <button class="btn btn-primary" id="finishBtn" onclick="finishQuiz()" style="display: none;">Terminer</button>
+                <button class="btn btn-secondary" id="prevBtn" disabled>Précédent</button>
+                <button class="btn btn-primary" id="nextBtn">Suivant</button>
+                <button class="btn btn-primary" id="finishBtn" style="display: none;">Terminer</button>
             </div>
         </div>
     </div>
 
-    <script
-        src="./js/script.js" defer>
-    </script>
 </body>
 </html>
