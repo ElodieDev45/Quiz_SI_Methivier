@@ -27,7 +27,7 @@ export function renderQuestion() {
 
             const optionInput = document.createElement('input');
             optionInput.type = 'radio';
-            optionInput.name = `question${questionData.id}`;
+            optionInput.name = "option";
             optionInput.value = key;
             optionInput.id = `option-${questionData.id}-${key}`;
             optionLabel.appendChild(optionInput);
@@ -47,6 +47,7 @@ export function renderQuestion() {
 
             optionsDiv.appendChild(optionLabel);
         }
+
         questionDiv.appendChild(optionsDiv);
         questionContainer.appendChild(questionDiv);
 
@@ -62,7 +63,8 @@ export function renderQuestion() {
     } else if (Navigation.currentQuestionIndex >= Donnees.totalQuestions) {
         Resultats.displayResults(); // Afficher les résultats si toutes les questions ont été parcourues
     }
-    updateNavigationButtons();
+
+    updateNavigationButtons(); // Mettre à jour les boutons en dehors du bloc conditionnel
 }
 
 // Fonction pour mettre à jour les boutons de navigation (Précédent/Suivant/Terminer)
@@ -73,15 +75,15 @@ export function updateNavigationButtons() {
 
     prevBtn.disabled = Navigation.currentQuestionIndex === 0;
 
-    if (Navigation.currentQuestionIndex === Donnees.totalQuestions - 1) {
-        nextBtn.style.display = 'none';
-        finishBtn.style.display = 'block';
-        finishBtn.disabled = !Donnees.userAnswers[Donnees.quizData[Navigation.currentQuestionIndex].id]; // Désactiver Terminer si pas de réponse à la dernière question
-    } else {
-        nextBtn.style.display = 'block';
-        finishBtn.style.display = 'none';
-        nextBtn.disabled = !Donnees.userAnswers[Donnees.quizData[Navigation.currentQuestionIndex].id]; // Désactiver Suivant si pas de réponse
-    }
+    const currentQuestion = Donnees.quizData[Navigation.currentQuestionIndex];
+    const answered = Donnees.userAnswers[currentQuestion?.id];
+
+    // ✅ On ne s’occupe PAS de l’index ici : les boutons sont gérés depuis navigation.js
+    nextBtn.style.display = 'block';
+    finishBtn.style.display = 'none';
+
+    nextBtn.disabled = !answered;
+    finishBtn.disabled = !answered;
 }
 
 // Fonction pour mettre à jour la barre de progression
@@ -95,4 +97,3 @@ export function updateProgressBar() {
 export function updateQuestionCounter() {
     document.getElementById('currentQuestionNumber').textContent = Navigation.currentQuestionIndex + 1;
 }
-

@@ -1,8 +1,7 @@
 import * as Affichage from './affichage.js';
 import * as Donnees from './donnees.js';
 
-export let userAnswers = {};
-export let score = 0;
+export let score = 0; // Variable pour stocker le score global
 
 // Fonction pour afficher les résultats
 export function displayResults() {
@@ -29,11 +28,54 @@ export function displayResults() {
         message = "Bonne tentative ! Vous avez besoin de réviser certains concepts.";
         scoreClass = 'poor';
     }
+
     scoreMessageElement.textContent = message;
     finalScoreElement.className = 'score ' + scoreClass; // Appliquer la classe pour la couleur
 
     displayCategoryBreakdown();
     displayRecommendations(scoreClass);
+}
+
+// Ajout d’un graphique camembert en fin de quiz
+export function afficherCamembertReponses() {
+    const userAnswers = JSON.parse(localStorage.getItem('userAnswers'));
+    let correct = 0;
+    let incorrect = 0;
+
+    Donnees.quizData.forEach(q => {
+        const userAnswer = userAnswers.find(obj => obj.id === q.id)?.answer;
+        if (userAnswer === q.correctAnswer) {
+            correct++;
+        } else {
+            incorrect++;
+        }
+    });
+
+    const canvas = document.createElement('canvas');
+    canvas.id = 'resultChart';
+    canvas.width = 400;
+    canvas.height = 400;
+    document.getElementById('results').appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Bonnes réponses', 'Mauvaises réponses'],
+            datasets: [{
+                data: [correct, incorrect],
+                backgroundColor: ['#4CAF50', '#F44336']
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Répartition des réponses'
+                }
+            }
+        }
+    });
 }
 
 // Fonction pour afficher la répartition par catégorie
@@ -44,7 +86,7 @@ export function displayCategoryBreakdown() {
     for (const category in Donnees.categoryScores) {
         const data = Donnees.categoryScores[category];
         const percentage = data.total > 0 ? (data.correct / data.total * 100).toFixed(0) : 0;
-        
+
         const card = document.createElement('div');
         card.classList.add('category-card');
         card.innerHTML = `
@@ -78,15 +120,16 @@ export function displayRecommendations(scoreClass) {
         li.textContent = "Excellent travail dans toutes les catégories ! Continuez à apprendre et à vous tenir informé.";
         ul.appendChild(li);
     }
+
     recommendationsDiv.appendChild(ul);
 }
 
 // Fonction pour recommencer le quiz
 export function restartQuiz() {
-    currentQuestionIndex = 0;
-    userAnswers = {};
-    score = 0;
-    
+    Navigation.currentQuestionIndex = 0;
+    Donnees.userAnswers = {}; // Réinitialiser les réponses utilisateur
+    score = 0; // Réinitialiser le score global
+
     // Masquer les résultats et afficher le quiz
     document.getElementById('results').classList.remove('active');
     document.querySelector('.quiz-content').style.display = 'block';
@@ -95,7 +138,7 @@ export function restartQuiz() {
     Affichage.renderQuestion();
     Affichage.updateProgressBar();
     Affichage.updateQuestionCounter();
-    
+
     // Réinitialiser les boutons de navigation
     document.getElementById('nextBtn').style.display = 'block';
     document.getElementById('finishBtn').style.display = 'none';
@@ -112,4 +155,23 @@ export function restartQuiz() {
         Donnees.categoryScores[category].correct = 0;
         Donnees.categoryScores[category].total = 0;
     }
+}
+
+// export dans un Array du choix de la réponse utilisateur à la question
+export function saveAnswer(questionId, selectedOption) {
+    let storedAnswers = JSON.parse(localStorage.getItem("userAnswers")) || [];
+
+    const existingIndex = storedAnswers.findIndex(item => item.id === questionId);
+
+    if (existingIndex !== -1) {
+        storedAnswers[existingIndex].answer = selectedOption;
+    } else {
+        storedAnswers.push({ id: questionId, answer: selectedOption });
+    }
+
+    localStorage.setItem("userAnswers", JSON.stringify(storedAnswers));
+
+    // 🛠️ Ajout des logs pour vérification
+    console.log(`✅ Réponse enregistrée : ${questionId} → ${selectedOption}`);
+    console.log("🗂️ Contenu actuel du localStorage (userAnswers):", storedAnswers);
 }
