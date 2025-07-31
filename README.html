@@ -89,7 +89,7 @@
 <hr>
 <p><em>🔹 Pour répondre simplement au questionnaire :</em><br>
 <em>Lancez le fichier <code>START.bat</code></em><br>
-<em>→ Le quiz s’ouvrira directement dans votre navigateur</em></p>
+<strong><em>→ Le quiz s’ouvrira directement dans votre navigateur</em></strong> <em>(il s’agit de la page <code>projet.html</code>, rendue automatiquement par le serveur Flask (server.py).)</em></p>
 <p><em>🔹 Pour modifier le projet ou utiliser les scripts Python :</em><br>
 <em>Ouvrez un terminal dans le dossier <code>systeme</code> et lancez <code>.\launch.ps1</code></em><br>
 <em>→ Cela activera l’environnement virtuel <code>.venv</code>, nécessaire à vos modifications</em></p>
@@ -101,6 +101,7 @@
 <li><a href="#structure-du-projet">Structure du projet</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#compilation-des-styles-scss">Compilation des styles (SCSS)</a></li>
+<li><a href="#architecture-javascript-modulaire">Architecture JavaScript Modulaire</a></li>
 <li><a href="#utilisation">Utilisation</a></li>
 <li><a href="#notes-complementaires">Notes complémentaires</a></li>
 <li><a href="#structureformats-des-fichiers-de-donnees">Structure/Formats des fichiers de données</a></li>
@@ -111,11 +112,12 @@
 <ul>
 <li>✏️ <strong>Concevoir un questionnaire sur Excel</strong> (modifiable à volonté)</li>
 <li>🔄 <strong>Surveiller automatiquement</strong> les modifications du fichier</li>
-<li>💾 <strong>Générer et mettre à jour un fichier JSON</strong> structuré contenant :</li>
+<li>💾 <strong>Générer et mettre à jour les fichiers JSON</strong> structurés contenant :</li>
 <li>le titre du questionnaire</li>
+<li>le descriptif du questionnaire</li>
 <li>les questions</li>
 <li>les réponses proposées</li>
-<li>les réponses correctes</li>
+<li>les réponses correctes permettant l'affichage des résultats sous forme de pourcentage de réussite.</li>
 </ul>
 <hr>
 <p><a name="technologies-utilisees"></a></p>
@@ -156,30 +158,48 @@
 <pre><code class="language-text">
 &quot;nom du dossier&quot;/
 ├── README.md                           # Documentation principale
-├── README.html                         # Version HTML du README
-├── START.bat                           # Script de lancement du quiz
+├── README.html                         # Version web du README, consultable hors GitHub
+├── START.bat                           # Script de lancement du quiz (windows)
+
 └── systeme/                            # Dossier contenant tous les composants du projet
+
+    # 🚀 Lancement
+    ├── launch.ps1                      # Script PowerShell de lancement (Windows)
+    ├── script_lancement.py             # Script Python de lancement personnalisé
+
+    # 📦 Dépendances
+    ├── requirements.txt                # Dépendances Python nécessaires au projet
     ├── package.json                    # Dépendances et configuration Node.js
     ├── package-lock.json               # Verrouillage des versions de modules
+
+    # 🎨 Interface utilisateur
+    ├── projet.html                     # Page HTML affichée dans le navigateur par le serveur Flask
+
+    # ⚙️ Données &amp; Configuration
+    ├── config.json                     # Fichier JSON de configuration globale (en-tête)
     ├── questions.json                  # Fichier JSON contenant les questions du quiz
-    ├── quiz_informatique_complete.py   # Script principal du quiz (version complète)
-    ├── script_lancement.py             # Script Python de lancement personnalisé
-    ├── server.py                       # Serveur web (Flask)
-    ├── Tableau-Questions.xlsx          # Tableur Excel contenant toutes les questions
-    ├── .venv/                          # Environnement virtuel Python
-    ├── css/
-    │   ├── sass/                       # Fichiers source SASS
-    │   ├── style.css                   # Feuille de style CSS compilée
-    │   └── style.css.map               # Source map pour le CSS
+    ├── Tableau-Questions.xlsx          # Tableur Excel contenant toutes les questions et calculs d'en-tête
+
+    # 🔌 Serveur
+    ├── server.py                       # Serveur web Flask (gère les requêtes et l'affichage)
+
+    # 🎨 Ressources front-end
+    ├── css/                            # Fichiers style CSS compilés avec SASS
+    ├── js/                             # Logique modulaire JavaScript pour l’interactivité du Quiz
     ├── images/                         # Ressources graphiques utilisées dans le quiz
-    ├── js/
-    │   └── script.js                   # Logique client pour l'interactivité du quiz
+
+    # 🧪 Environnements &amp; modules
+    ├── .venv/                          # Environnement virtuel Python (isole les dépendance)
     ├── node_modules/                   # Modules Node.js installés automatiquement
+
+    # 🎭 Personnalisation &amp; effets
+    ├── Python/                         # Scripts de génération, conversion et surveillance
+                                        (⚠️ pour `readme-en-html.py` version phyton 3.11.4 pour 
+                                        pouvoir générer le fichier README.html)
+
+    # 🛠 Utilitaires &amp; scripts annexes
     ├── pack-emoji-surveillance/        # Pack d’emojis pour les scores et effets visuels
-    ├── Python/
-    │   ├── auto_convert.py             # Script de surveillance du fichier Excel
-    │   ├── convertisseur-excel-json.py # Conversion du tableau Excel vers JSON
-    │   └── readme-en-html.py           # Générateur automatique du README HTML
+
 
 </code></pre>
 <hr>
@@ -248,6 +268,25 @@ pip install -r requirements.txt
 
 </code></pre>
 <hr>
+<p><a name="architecture-javascript-modulaire"></a></p>
+<h2>🧠 Architecture JavaScript Modulaire</h2>
+<p>Le fichier principal <strong><em><code>main.js</code></em></strong> agit comme point d'entrée principal de l'application. 
+Il orchestre :</p>
+<ul>
+<li><em>le chargement des données</em></li>
+<li><em>l'affichage du quiz</em></li>
+<li><em>la navigation entre les questions</em></li>
+<li><em>la gestion des résultats.</em></li>
+</ul>
+<p>Le projet adopte une approche <em>modulaire</em> avec une séparation claire des responsabilités dans 4 fichiers js dits <strong><em>"modules"</em></strong>:</p>
+<ul>
+<li><code>donnees.js</code> : chargement et gestion des questions et métadonnées</li>
+<li><code>affichage.js</code> : affichage dynamique des questions, options, progression</li>
+<li><code>navigation.js</code> : gestion du déplacement entre les questions</li>
+<li><code>resultats.js</code> : calcul et affichage des scores et recommandations</li>
+</ul>
+<p>Cette structure rend le code plus lisible, maintenable et évolutif.</p>
+<hr>
 <p><a name="utilisation"></a></p>
 <h2>🎯 Utilisation</h2>
 <p>1- Créer/modifier le questionnaire dans Tableau-Questions.xlsx</p>
@@ -267,34 +306,126 @@ pip install -r requirements.txt
 </ul>
 <hr>
 <p><a name="structureformats-des-fichiers-de-donnees"></a></p>
-<h2>➕ Structure/Formats des fichiers de données</h2>
-<h3>🧮 Excel</h3>
+<h2>➕ Structure et Formats des fichiers de données :</h2>
+<p><strong>Deux</strong> fichiers JSON sont <strong>créés et mis à jour</strong>, d'après un tableur Excel, <strong>automatiquement</strong> et <strong>en même temps</strong>, <strong><em>sans aucune intervention manuelle</em></strong>, garantissant une parfaite synchronisation entre la source Excel et l’affichage du quiz.</p>
+<hr>
+<h3><em>➕➕</em> Relatifs à l'intégration des Titres</h3>
+<hr>
+<h4>🌀 Génération automatique : <code>config.json</code></h4>
+<p>Le projet utilise un mécanisme intelligent pour générer automatiquement le fichier <em><code>config.json</code></em> à chaque mise à jour du fichier Excel <em><code>Tableau-Questions.xlsx</code></em> :</p>
 <ul>
-<li>Voici les titres des colonnes du tableau "Tableau-Questions.xlsx" :</li>
+<li>
+<p>Suivant l'onglet <strong><code>Infos</code></strong> dans le classeur excel qui contient un tableau permettant :</p>
+<ul>
+<li>
+<p>de récupérer <strong>dynamiquement</strong> le nom du dossier racine via une formule, en remontant d’un ou plusieurs niveaux au choix depuis le dossier <code>systeme</code></p>
+</li>
+<li>
+<p>de saisir <strong>manuellement</strong> un descriptif personnalisé du questionnaire</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>💡 Utilité de <code>config.json</code>:</h4>
+<ul>
+<li>
+<p>Il sert à alimenter le fichier <code>projet.html</code>pour :</p>
+<ul>
+<li>
+<p>la balise <code>title</code> dans le <code>head</code> de <code>projet.html</code></p>
+</li>
+<li>
+<p>le contenu de <code>h1</code> et <code>p</code> dans le bloc <code>.header</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>🧮 Structure EXCEL : <code>Tableau-Questions.xlsx</code> onglet <code>Infos</code></h4>
+<ul>
+<li><em>exemple de contenu</em></li>
+</ul>
+<pre><code class="language-text">
+| n° dossier parents recherché en  remontant le chemin | Titre-principal | Description-projet |
+|------------------------------------------------------|-----------------|--------------------|
+| 2                                                    | Quiz SI Metiv...| Ce quiz a été...   |
+
+</code></pre>
+<h4>🪙 Structure JSON : <code>config.json</code></h4>
+<ul>
+<li><em>avec exemple du contenu</em></li>
+</ul>
+<pre><code class="language-json">
+{
+  &quot;titre-principal&quot;: &quot;Quiz SI Metiv...&quot;,
+  &quot;description-projet&quot;: &quot;Ce quiz a été...&quot;
+}
+
+</code></pre>
+<hr>
+<h3><em>➕➕</em> Relatifs à l'intégration des Questions</h3>
+<hr>
+<h4>🌀 Génération automatique : <code>questions.json</code></h4>
+<p>Comme précédement le projet utilise un mécanisme intelligent pour générer automatiquement le fichier <code>questions.json</code> à chaque mise à jour du fichier Excel <em><code>Tableau-Questions.xlsx</code></em> :</p>
+<ul>
+<li>
+<p>Suivant l'onglet <strong><code>Questions</code></strong> dans le classeur excel qui contient un tableau permettant :</p>
+<ul>
+<li>
+<p>de <strong>structurer</strong> le fichier JSON suivant les différentes <em>colonnes</em> du tableau</p>
+</li>
+<li>
+<p>de <strong>saisir manuellement l'intégralité</strong> des données du questionnaire d'après tout thème désiré</p>
+</li>
+<li>
+<p>de <strong>récupérer dynamiquement</strong> l'intégralité des questions contenues dans le tableau</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>💡 Utilité de <code>question.json</code>:</h4>
+<ul>
+<li>
+<p>Il sert à alimenter le fichier <code>projet.html</code>pour :</p>
+<ul>
+<li>
+<p>la <strong>génération dynamique du contenu principal du quiz</strong>, incluant les questions, les options de réponse et les catégories.</p>
+</li>
+<li>
+<p>l’<strong>affichage de chaque question et ses réponses</strong> dans l’interface interactive du quiz, en fonction de la progression utilisateur.</p>
+</li>
+<li>
+<p>la <strong>logique de navigation et de vérification des réponses</strong>, en associant chaque choix à l’identifiant correct provenant du JSON.</p>
+</li>
+<li>
+<p><strong>la personnalisation visuelle et thématique</strong> du questionnaire, selon les métadonnées présentes dans chaque entrée (category, id, etc.)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>🧮 Structure EXCEL : <code>Tableau-Questions.xlsx</code> onglet <code>Questions</code></h4>
+<ul>
+<li>colonnes de titres :</li>
 </ul>
 <pre><code class="language-text">
     &quot;id&quot;    &quot;category&quot;  &quot;question&quot;  &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;correctAnswer&quot;
 
 </code></pre>
-<ul>
-<li>
-<p>Consignes :</p>
+<blockquote>
+<p><strong>📌 Consignes</strong> :</p>
+<blockquote>
 <ul>
 <li>
 <p>les données de la colonne "id" doivent être unique et correspondre au format : "q" + n° question (ex : q1)</p>
 </li>
 <li>
 <p>Les colonnes de réponses ("a", "b", "c", ...) sont modulables à volonté (ajout ou suppression). Il suffit de suivre l’ordre alphabétique avec un seul caractère pour chaque titre.
-Ces colonnes deviennent un objet "options" dans le fichier JSON généré.</p>
+Ces colonnes deviennent un objet <code>options</code> dans le fichier JSON généré.</p>
 </li>
-<li>
-<p>les autres colonnes sont FIXES et OBLIGATOIRES. Leur titres ne doivent PAS être modifiés.</p>
-</li>
+<li>les autres colonnes sont FIXES et OBLIGATOIRES. Leur titres ne doivent PAS être modifiés.</li>
 </ul>
-</li>
-</ul>
-<h3>🧾 JSON</h3>
-<p>La structure du JSON (questions.json) créé est la suivante :</p>
+</blockquote>
+</blockquote>
+<h4>🪙 Structure JSON : <code>question.json</code></h4>
 <pre><code class="language-json">
     {
         &quot;id&quot;: &quot;&quot;,
@@ -310,10 +441,10 @@ Ces colonnes deviennent un objet "options" dans le fichier JSON généré.</p>
     }
 
 </code></pre>
-<h3>📊 Exemple Correspondance Excel/JSON :</h3>
+<h4>🔁 Exemple Correspondance Excel/JSON :</h4>
 <ul>
 <li>
-<h4>Excel</h4>
+<h5>✅ Excel</h5>
 </li>
 </ul>
 <pre><code class="language-text">
@@ -324,7 +455,7 @@ Ces colonnes deviennent un objet "options" dans le fichier JSON généré.</p>
 </code></pre>
 <ul>
 <li>
-<h4>JSON</h4>
+<h5>✅ JSON</h5>
 </li>
 </ul>
 <pre><code class="language-json">
