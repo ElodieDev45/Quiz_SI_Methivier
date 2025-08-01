@@ -29,3 +29,8 @@
   border-radius: 5px;
   width: 100%;
 }
+
+// BACKGROUND SEMI TRANSPARENT
+@mixin transparent-background($color, $alpha: 0.5) {
+  background-color: rgba($color, $alpha);
+}
