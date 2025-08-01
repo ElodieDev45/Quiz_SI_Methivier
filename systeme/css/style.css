@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -36,8 +37,91 @@ body {
   opacity: 0.9;
 }
 
+.identite-form {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto 30px auto;
+}
+.identite-form h2 {
+  text-align: center;
+  font-size: 1.6em;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+.identite-form #identiteForm {
+  display: flex;
+  flex-direction: column;
+}
+.identite-form #identiteForm label {
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  color: white;
+  background: #3498db;
+  padding: 6px 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+.identite-form #identiteForm input,
+.identite-form #identiteForm select {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #e1e8ed;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.identite-form #identiteForm button {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  margin-top: 20px;
+  width: fit-content;
+  align-self: center;
+}
+.identite-form #identiteForm button:hover {
+  background: linear-gradient(135deg, #217dbb, #20638f);
+}
+
 .quiz-content {
   padding: 30px;
+}
+.quiz-content .user-identity-display {
+  background-color: #f0f8ff;
+  border-left: 4px solid #3498db;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  font-style: italic;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #877f8d;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.quiz-content .user-identity-display p {
+  margin: 0;
+  line-height: 1.4;
+}
+.quiz-content .user-identity-display p:nth-child(1)::before {
+  content: "👤 ";
+}
+.quiz-content .user-identity-display p:nth-child(2)::before {
+  content: "🎂 ";
+}
+.quiz-content .user-identity-display p:nth-child(3)::before {
+  content: "💼 ";
 }
 .quiz-content .progress-bar {
   width: 100%;

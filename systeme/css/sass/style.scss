@@ -41,8 +41,89 @@ body {
   }
 }
 
+
+.identite-form {
+  background: $light-background;
+  padding: $padding-medium;
+  border-radius: $border-radius-base;
+  box-shadow: $box-shadow-medium;
+  max-width: 500px;
+  margin: 0 auto $padding-medium auto;
+
+  h2 {
+    text-align: center;
+    font-size: 1.6em;
+    margin-bottom: $padding-base;
+    color: $dark-color;
+  }
+
+  #identiteForm {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-weight: bold;
+      margin-top: $padding-base;
+      margin-bottom: 5px;
+      color: $white-color;
+      background: $primary-color;
+      padding: 6px 10px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    input,
+    select {
+      @include form-element-styles;
+      margin-bottom: $padding-base;
+    }
+
+    button {
+      @include button-styles($primary-color, $secondary-color);
+      margin-top: $padding-base;
+      width: fit-content;
+      align-self: center;
+    }
+  }
+}
+
+
 .quiz-content {
   padding: $padding-medium;
+
+  .user-identity-display {
+    background-color: $hover-background; // cohérent avec ton hover UI
+    border-left: 4px solid $primary-color;
+    padding: $padding-base;
+    margin-bottom: $padding-base;
+    font-size: 0.95rem;
+    font-style: italic;
+    font-family: $font-stack;
+    color: $text-color;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    border-radius: $border-radius-small;
+    box-shadow: $box-shadow-medium;
+
+    p {
+      margin: 0;
+      line-height: 1.4;
+
+      &:nth-child(1)::before {
+        content: "👤 ";
+      }
+
+      &:nth-child(2)::before {
+        content: "🎂 ";
+      }
+
+      &:nth-child(3)::before {
+        content: "💼 ";
+      }
+    }
+  }
+
 
   .progress-bar {
     width: 100%;

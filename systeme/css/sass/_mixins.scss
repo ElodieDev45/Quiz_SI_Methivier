@@ -20,3 +20,12 @@
         background: linear-gradient(135deg, darken($bg-start, 10%), darken($bg-end, 10%));
     }
 }
+
+// PARAMETRE ELEMENTS DE FORMULAIRE
+@mixin form-element-styles {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  width: 100%;
+}
