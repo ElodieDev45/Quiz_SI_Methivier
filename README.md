@@ -81,6 +81,7 @@ Ce projet propose un système complet pour **créer, modifier et suivre dynamiqu
 #### Packages utilisés (`package.json`) :
 - `sass@1.89.2` → SCSS → CSS
 - `g@2.0.1` → Outils CLI
+- `chokidar": "^4.0.3` → Déclencheur de compilation SCSS
 
 ---
 
