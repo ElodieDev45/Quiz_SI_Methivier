@@ -1,7 +1,7 @@
 @echo off
 cls
 echo ===============================
-echo        START DU QUIZ MAXIME
+echo        START DU QUIZ
 echo ===============================
 echo.
 
