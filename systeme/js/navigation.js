@@ -1,8 +1,50 @@
 import * as Affichage from './affichage.js';
 import * as Donnees from './donnees.js';
-import * as Resultats from './resultats.js'
+import * as Resultats from './resultats.js';
 
 export let currentQuestionIndex = 0;
+
+// 📌 Fonction pour gérer le formulaire d'identité utilisateur
+export function gererFormulaireIdentite() {
+    const identiteForm = document.getElementById("identiteForm");
+    if (!identiteForm) return;
+
+    identiteForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const titre = document.getElementById("titre").value;
+        const nom = document.getElementById("nom").value.trim();
+        const prenom = document.getElementById("prenom").value.trim();
+
+        Donnees.enregistrerIdentite(titre, nom, prenom); // Enregistrement dans l'objet Donnees
+
+        // Intégrer l'identité dans le localStorage des réponses
+        const storedAnswers = JSON.parse(localStorage.getItem("userAnswers")) || [];
+        const identiteObj = {
+        type: "identite",
+        titre,
+        nom,
+        prenom,
+        timestamp: new Date().toISOString()
+        };
+        if (!storedAnswers.find(item => item.type === "identite")) {
+        storedAnswers.unshift(identiteObj);
+        }
+        localStorage.setItem("userAnswers", JSON.stringify(storedAnswers));
+
+        Affichage.renderUserIdentity(Donnees.utilisateur.identite); // Affichage identité
+
+        // On passe au quiz après saisie
+        document.getElementById("identiteSection").style.display = "none";
+        document.querySelector(".quiz-content").style.display = "block";
+
+        // Affichage de la première question
+        Affichage.renderQuestion();
+        Affichage.updateProgressBar();
+        Affichage.updateQuestionCounter();
+        Affichage.updateNavigationButtons();
+    });
+}
 
 // Fonction utilitaire pour afficher/masquer les boutons de navigation
 function toggleButtons(nextVisible, finishVisible) {
@@ -24,7 +66,7 @@ function enregistrerReponse() {
     return true;
 }
 
-// Fonction pour passer à la question suivante
+// Navigation suivante
 export function nextQuestion() {
     if (!enregistrerReponse()) return;
 
@@ -34,29 +76,24 @@ export function nextQuestion() {
         Affichage.renderQuestion();
         Affichage.updateProgressBar();
         Affichage.updateQuestionCounter();
-
-        // Si on affiche la dernière question, on garde “Suivant” jusqu’au clic
         toggleButtons(true, false);
     } else {
-        // Le clic sur “Suivant” depuis la dernière question → on passe à “Terminer”
-        toggleButtons(false, true);
+        toggleButtons(false, true); // Afficher bouton “Terminer”
     }
 }
 
-// Fonction pour revenir à la question précédente
+// Navigation précédente
 export function previousQuestion() {
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
         Affichage.renderQuestion();
         Affichage.updateProgressBar();
         Affichage.updateQuestionCounter();
-
-        // Si on revient en arrière depuis la dernière question, on remet les bons boutons
         toggleButtons(true, false);
     }
 }
 
-// Fonction pour terminer le quiz
+// Fin du quiz
 export function terminerQuiz() {
     if (!enregistrerReponse()) return;
 

@@ -5,28 +5,49 @@ export let quizData = [];
 export let totalQuestions = 0;
 export let categoryScores = {};
 export let userAnswers = {};
+export let rawData = {};
+
+// données d'identité utilisateur
+//Objet qui stock les infos utilisateur
+export const utilisateur = {
+  identite: {
+    titre: "",
+    nom: "",
+    prenom: ""
+  },
+  score: null,
+  timestamp: null
+};
+// Fonction pour enregistrer les infos d'identité.
+export function enregistrerIdentite(titre, nom, prenom) {
+  utilisateur.identite = { titre, nom, prenom };
+  utilisateur.timestamp = new Date().toISOString();
+  localStorage.setItem("quizData", JSON.stringify(utilisateur));
+}
 
 // Fonction pour charger les questions depuis questions.json
 export async function loadQuestions() {
     try {
-        const response = await fetch('./questions.json'); // Assure-toi que le fichier est bien à la racine du projet
+        const response = await fetch('./questions.json'); // fichier à laisser dans dossier "systeme"
         console.log("📥 Réponse brute fetch :", response);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const rawData = await response.clone().json(); // Cloner pour pouvoir l'afficher
+        // Clone pour afficher les données et les stock dans "rawData"
+        const rawData = await response.clone().json();
         console.log("📄 Données JSON brutes :", rawData);
 
-        // Si ce n’est pas un tableau, on tente une conversion avec Object.values()
+        // Si ce n’est pas déjà un tableau, on tente une conversion avec Object.values()
         if (!Array.isArray(rawData)) {
             console.warn("⚠️ Les données JSON ne sont pas un tableau. Conversion forcée en tableau avec Object.values.");
             quizData = Object.values(rawData);
         } else {
-            quizData = rawData;
+            quizData = rawData; //creation données dans "quizData"
         }
 
+        // stock la quantité totale de questions dans "totalQuestions"
         totalQuestions = quizData.length;
         console.log("✅ Nombre de questions chargées :", totalQuestions);
         console.log("🔍 Exemple de première question :", quizData[0]);
@@ -38,6 +59,7 @@ export async function loadQuestions() {
             }
         });
 
+        // mise à jour du DOM de la page avec le nombre total de questions
         document.getElementById('totalQuestionsCount').textContent = totalQuestions;
 
         // 🔔 Appels d'affichage post-chargement

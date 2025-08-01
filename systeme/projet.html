@@ -16,7 +16,31 @@
             <p id="description-projet">Chargement de la description...</p>
         </div>
 
+        <div class="identite-form" id="identiteSection">
+            <h2>Avant de commencer le quiz 📝</h2>
+             <form id="identiteForm">
+                <label for="titre" class="label-style">Titre</label>
+                <select id="titre" required>
+                    <option value="">--Choisir--</option>
+                    <option value="Mme">Mme</option>
+                    <option value="M.">M.</option>
+                </select>
+
+                <label for="nom" class="label-style">Nom</label>
+                <input type="text" id="nom" required />
+
+                <label for="prenom" class="label-style">Prénom</label>
+                <input type="text" id="prenom" required />
+
+                <button class="btn btn-primary" type="submit">Commencer le quiz</button>
+            </form>
+        </div>
+
         <div class="quiz-content">
+            <!-- Zone d'affichage identité -->
+            <div id="userIdentityContainer" class="user-identity-display"></div>
+
+            <!-- Barre de progression -->
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>

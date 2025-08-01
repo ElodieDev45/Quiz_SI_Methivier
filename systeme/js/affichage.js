@@ -2,13 +2,36 @@ import * as Navigation from './navigation.js';
 import * as Donnees from './donnees.js';
 import * as Resultats from './resultats.js';
 
+// Fonction pour afficher les informations d'identité de l'utilisateur
+export function renderUserIdentity(identityData) {
+    const identityContainer = document.getElementById('userIdentityContainer');
+    if (!identityContainer || !identityData) return;
+
+    identityContainer.innerHTML = ''; // Vider l'ancien contenu
+
+    // Création du bloc identité
+    const identityBlock = document.createElement('div');
+    identityBlock.classList.add('identity-block');
+
+    // 👤 Construction de la ligne d'identité complète
+    const fullName = `${identityData.titre || ''} ${identityData.prenom || ''} ${identityData.nom || ''}`.trim();
+    const nameElement = document.createElement('p');
+    nameElement.textContent = `${fullName}`;
+    identityBlock.appendChild(nameElement);
+
+    identityContainer.appendChild(identityBlock);
+}
+
 // Fonction pour afficher une question
 export function renderQuestion() {
     const questionContainer = document.getElementById('questionsContainer');
     questionContainer.innerHTML = ''; // Nettoyer le contenu précédent
 
     if (Navigation.currentQuestionIndex < Donnees.totalQuestions) {
+        //recupère les données de la queston en cours
         const questionData = Donnees.quizData[Navigation.currentQuestionIndex];
+
+        //création du DOM
         const questionDiv = document.createElement('div');
         questionDiv.classList.add('question', 'active');
 
@@ -19,7 +42,7 @@ export function renderQuestion() {
         const optionsDiv = document.createElement('div');
         optionsDiv.classList.add('options');
 
-        // Itérer sur les options de la question pour créer les éléments HTML
+        // Itére sur les options (choix de reponses) de la question pour créer le DOM HTML
         for (const key in questionData.options) {
             const optionValue = questionData.options[key];
             const optionLabel = document.createElement('label');

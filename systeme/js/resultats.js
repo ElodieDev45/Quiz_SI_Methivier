@@ -1,9 +1,10 @@
 import * as Affichage from './affichage.js';
 import * as Donnees from './donnees.js';
+import * as Navigation from './navigation.js'; // Pour le restart
 
-export let score = 0; // Variable pour stocker le score global
+export let score = 0; // Score global du quiz
 
-// Fonction pour afficher les résultats
+// Fonction principale d'affichage des résultats
 export function displayResults() {
     document.querySelector('.quiz-content').style.display = 'none';
     const resultsDiv = document.getElementById('results');
@@ -30,13 +31,20 @@ export function displayResults() {
     }
 
     scoreMessageElement.textContent = message;
-    finalScoreElement.className = 'score ' + scoreClass; // Appliquer la classe pour la couleur
+    finalScoreElement.className = 'score ' + scoreClass;
+
+    // 👤 Ajout du bloc identité utilisateur
+    const identityBlock = document.createElement('div');
+    identityBlock.classList.add('result-identity');
+    const { titre, nom, prenom } = Donnees.utilisateur.identite;
+    identityBlock.innerHTML = `<p>🧑‍🎓 Participant : ${titre} ${prenom} ${nom}</p>`;
+    resultsDiv.insertBefore(identityBlock, finalScoreElement);
 
     displayCategoryBreakdown();
     displayRecommendations(scoreClass);
 }
 
-// Ajout d’un graphique camembert en fin de quiz
+// Graphique camembert de réponses
 export function afficherCamembertReponses() {
     const userAnswers = JSON.parse(localStorage.getItem('userAnswers'));
     let correct = 0;
@@ -78,10 +86,10 @@ export function afficherCamembertReponses() {
     });
 }
 
-// Fonction pour afficher la répartition par catégorie
+// Détail par catégorie
 export function displayCategoryBreakdown() {
     const categoryBreakdownDiv = document.getElementById('categoryBreakdown');
-    categoryBreakdownDiv.innerHTML = '<h3>Répartition par catégorie</h3>'; // Ajouter un titre
+    categoryBreakdownDiv.innerHTML = '<h3>Répartition par catégorie</h3>';
 
     for (const category in Donnees.categoryScores) {
         const data = Donnees.categoryScores[category];
@@ -98,80 +106,92 @@ export function displayCategoryBreakdown() {
     }
 }
 
-// Fonction pour afficher des recommandations basées sur le score global
+// Suggestions personnalisées
 export function displayRecommendations(scoreClass) {
     const recommendationsDiv = document.getElementById('recommendations');
     recommendationsDiv.innerHTML = '<h4>Recommandations personnalisées</h4>';
     const ul = document.createElement('ul');
 
     if (scoreClass === 'poor') {
-        const li1 = document.createElement('li');
-        li1.textContent = "Revoyez les bases de Windows, les raccourcis clavier et la gestion des fichiers.";
-        ul.appendChild(li1);
-        const li2 = document.createElement('li');
-        li2.textContent = "Familiarisez-vous avec les concepts de stockage local vs. serveur.";
-        ul.appendChild(li2);
+        ul.innerHTML = `
+            <li>Revoyez les bases de Windows, les raccourcis clavier et la gestion des fichiers.</li>
+            <li>Familiarisez-vous avec les concepts de stockage local vs. serveur.</li>
+        `;
     } else if (scoreClass === 'good') {
-        const li = document.createElement('li');
-        li.textContent = "Continuez à explorer des sujets plus avancés et à pratiquer les fonctionnalités moins courantes.";
-        ul.appendChild(li);
+        ul.innerHTML = `<li>Continuez à explorer des sujets plus avancés et à pratiquer les fonctionnalités moins courantes.</li>`;
     } else if (scoreClass === 'excellent') {
-        const li = document.createElement('li');
-        li.textContent = "Excellent travail dans toutes les catégories ! Continuez à apprendre et à vous tenir informé.";
-        ul.appendChild(li);
+        ul.innerHTML = `<li>Excellent travail dans toutes les catégories ! Continuez à apprendre et à vous tenir informé.</li>`;
     }
 
     recommendationsDiv.appendChild(ul);
 }
 
-// Fonction pour recommencer le quiz
+// Redémarrage complet du quiz
 export function restartQuiz() {
     Navigation.currentQuestionIndex = 0;
-    Donnees.userAnswers = {}; // Réinitialiser les réponses utilisateur
-    score = 0; // Réinitialiser le score global
+    Donnees.userAnswers = {};
+    score = 0;
 
-    // Masquer les résultats et afficher le quiz
     document.getElementById('results').classList.remove('active');
     document.querySelector('.quiz-content').style.display = 'block';
 
-    // Afficher la première question
     Affichage.renderQuestion();
     Affichage.updateProgressBar();
     Affichage.updateQuestionCounter();
-
-    // Réinitialiser les boutons de navigation
     document.getElementById('nextBtn').style.display = 'block';
     document.getElementById('finishBtn').style.display = 'none';
     Affichage.updateNavigationButtons();
 
-    // Nettoyer les messages de score et les recommandations
     document.getElementById('finalScore').classList.remove('excellent', 'good', 'poor');
     document.getElementById('scoreMessage').textContent = '';
     document.getElementById('categoryBreakdown').innerHTML = '';
     document.getElementById('recommendations').innerHTML = '';
+    document.getElementById('userIdentityContainer').innerHTML = '';
 
-    // Réinitialiser les scores par catégorie
     for (const category in Donnees.categoryScores) {
         Donnees.categoryScores[category].correct = 0;
         Donnees.categoryScores[category].total = 0;
     }
+
+    // ✅ Optionnel : réafficher le formulaire d'identité
+    document.getElementById('identiteSection').style.display = 'block';
 }
 
-// export dans un Array du choix de la réponse utilisateur à la question
+// Sauvegarde réponse utilisateur
 export function saveAnswer(questionId, selectedOption) {
-    let storedAnswers = JSON.parse(localStorage.getItem("userAnswers")) || [];
+  // Récupère les données d'identité
+  const quizData = JSON.parse(localStorage.getItem("quizData")) || {};
+  const userInfo = quizData.identite || {
+    titre: "",
+    prenom: "",
+    nom: ""
+  };
 
-    const existingIndex = storedAnswers.findIndex(item => item.id === questionId);
+  // Récupère les réponses existantes
+  const previousAnswers = JSON.parse(localStorage.getItem("userAnswers"))?.reponses || [];
 
-    if (existingIndex !== -1) {
-        storedAnswers[existingIndex].answer = selectedOption;
-    } else {
-        storedAnswers.push({ id: questionId, answer: selectedOption });
-    }
+  // Met à jour ou ajoute la réponse
+  const existingIndex = previousAnswers.findIndex(item => item.id === questionId);
 
-    localStorage.setItem("userAnswers", JSON.stringify(storedAnswers));
+  if (existingIndex !== -1) {
+    previousAnswers[existingIndex].answer = selectedOption;
+  } else {
+    previousAnswers.push({ id: questionId, answer: selectedOption });
+  }
 
-    // 🛠️ Ajout des logs pour vérification
-    console.log(`✅ Réponse enregistrée : ${questionId} → ${selectedOption}`);
-    console.log("🗂️ Contenu actuel du localStorage (userAnswers):", storedAnswers);
+  // Crée l’objet global à enregistrer
+  const finalAnswers = {
+    titre: userInfo.titre,
+    prenom: userInfo.prenom,
+    nom: userInfo.nom,
+    reponses: previousAnswers
+  };
+
+  // Enregistre dans le localStorage
+  localStorage.setItem("userAnswers", JSON.stringify(finalAnswers));
+
+  // Pour suivre le processus
+  console.log(`✅ Réponse enregistrée : ${questionId} → ${selectedOption}`);
+  console.log("🗂️ Données complètes enregistrées dans localStorage (userAnswers):", finalAnswers);
 }
+

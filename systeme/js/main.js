@@ -5,6 +5,13 @@ import * as Navigation from './navigation.js';
 import * as Resultats from './resultats.js';
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Masquer la section quiz au chargement initial
+  document.querySelector(".quiz-content").style.display = "none";
+
+  // Initialisation du formulaire d'identité
+  Navigation.gererFormulaireIdentite();
+
+  // Chargement des questions
   Donnees.loadQuestions().then(() => {
     // Affiche la première question dès le chargement
     Affichage.renderQuestion(); 
