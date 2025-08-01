@@ -1,3 +1,9 @@
+"""
+# 🔄📊 Script de transformation du fichier excel "Tableau-Questions.xlsx"
+# Convertit le tableau excel en fichiers question.json et config.json,
+# utilisés pour alimenter dynamiquement les données du Quiz.
+"""
+
 import pandas as pd
 import json
 import os

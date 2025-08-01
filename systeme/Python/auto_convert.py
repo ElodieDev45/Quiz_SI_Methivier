@@ -1,3 +1,9 @@
+"""
+# 👀📊 Script de surveillance automatique du fichier excel "Tableau-Questions.xlsx"
+# A chaque modification du fichier excel, déclenche le convertisseur-excel-json.py,
+# afin de générer les fichiers JSON du quiz en temps réél.
+"""
+
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import time

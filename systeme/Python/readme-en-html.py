@@ -1,3 +1,9 @@
+"""
+# 🔄🌐 Script de transformation du fichier README.md en README.html
+# Convertit le fichier Markdown (.md) en page HTML consultable via navigateur
+# pour une lecture visuelle directe et améliorée du contenu du projet.
+"""
+
 import markdown
 import os
 
