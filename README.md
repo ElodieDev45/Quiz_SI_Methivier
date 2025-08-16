@@ -79,9 +79,9 @@ Ce projet propose un système complet pour **créer, modifier et suivre dynamiqu
 - Compiler les styles du projet en CSS
 
 #### Packages utilisés (`package.json`) :
-- `sass@1.89.2` → SCSS → CSS
+- `sass@1.90.0` → SCSS → CSS
 - `g@2.0.1` → Outils CLI
-- `chokidar": "^4.0.3` → Déclencheur de compilation SCSS
+- `chokidar@^4.0.3` → Déclencheur de compilation SCSS
 
 ---
 
@@ -189,11 +189,22 @@ pip install -r requirements.txt
 
 ### 🌐 Node.js
 
-```node
+#### Environnement
 
-    npm install
+Ce projet utilise [NVM pour Windows](https://github.com/coreybutler/nvm-windows) pour gérer les versions de Node.js.
+
+- Version utilisée : `Node.js v22.18.0`
+- Gestionnaire : `nvm`
+- Assurez-vous que le chemin NVM est bien ajouté à votre variable d’environnement `Path`.
+
+#### Installation des dépendances
+
+```bash
+
+npm install
 
 ```
+> *Cette commande installe automatiquement les modules définis dans `package.json`.*
 
 ---
 

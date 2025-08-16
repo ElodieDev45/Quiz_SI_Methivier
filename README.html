@@ -149,8 +149,9 @@
 </ul>
 <h4>Packages utilisés (<code>package.json</code>) :</h4>
 <ul>
-<li><code>sass@1.89.2</code> → SCSS → CSS</li>
+<li><code>sass@1.90.0</code> → SCSS → CSS</li>
 <li><code>g@2.0.1</code> → Outils CLI</li>
+<li><code>chokidar@^4.0.3</code> → Déclencheur de compilation SCSS</li>
 </ul>
 <hr>
 <p><a name="structure-du-projet"></a></p>
@@ -255,10 +256,21 @@ pip install -r requirements.txt
 <p>Une fois ces étapes réalisées, il suffit de lancer <code>launch.ps1</code> pour activer <code>.venv</code> et démarrer automatiquement la surveillance du fichier.</p>
 </blockquote>
 <h3>🌐 Node.js</h3>
-<pre><code class="language-node">
-    npm install
+<h4>Environnement</h4>
+<p>Ce projet utilise <a href="https://github.com/coreybutler/nvm-windows">NVM pour Windows</a> pour gérer les versions de Node.js.</p>
+<ul>
+<li>Version utilisée : <code>Node.js v22.18.0</code></li>
+<li>Gestionnaire : <code>nvm</code></li>
+<li>Assurez-vous que le chemin NVM est bien ajouté à votre variable d’environnement <code>Path</code>.</li>
+</ul>
+<h4>Installation des dépendances</h4>
+<pre><code class="language-bash">
+npm install
 
 </code></pre>
+<blockquote>
+<p><em>Cette commande installe automatiquement les modules définis dans <code>package.json</code>.</em></p>
+</blockquote>
 <hr>
 <p><a name="compilation-des-styles-scss"></a></p>
 <h2>🎨 Compilation des styles (SCSS)</h2>
