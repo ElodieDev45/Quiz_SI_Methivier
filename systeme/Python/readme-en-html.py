@@ -107,11 +107,11 @@ style = """
 project_name = os.path.basename(os.path.join(script_dir, ".."))
 
 # 🧱 Construire le HTML complet
-html_page = f"""
-<!DOCTYPE html>
+html_page = f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>README – {project_name}</title>
     {style}
 </head>
