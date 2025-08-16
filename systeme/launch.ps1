@@ -7,5 +7,5 @@ Start-Process -NoNewWindow -FilePath "python" -ArgumentList "`"$PSScriptRoot\Pyt
 Write-Host "`n--- Surveillance Excel lancee en tache de fond ---"
 
 Write-Host "`n--- Surveillance des modifications SASS ---"
-Start-Process -NoNewWindow -FilePath "npx" -ArgumentList "sass", "--watch", "`"$PSScriptRoot\css\sass:$PSScriptRoot\css`""
+Start-Process -NoNewWindow -FilePath "cmd.exe" -ArgumentList "/c", "npx sass --watch `"$PSScriptRoot\css\sass:$PSScriptRoot\css`""
 Write-Host "`n--- Le SASS est desormais surveille en tache de fond ---"
