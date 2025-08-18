@@ -170,13 +170,23 @@ export function saveAnswer(questionId, selectedOption) {
   // Récupère les réponses existantes
   const previousAnswers = JSON.parse(localStorage.getItem("userAnswers"))?.reponses || [];
 
+  // Trouve la question correspondante
+  const question = Donnees.quizData.find(q => q.id === questionId);
+  const correctAnswer = question?.correctAnswer || null;
+
   // Met à jour ou ajoute la réponse
   const existingIndex = previousAnswers.findIndex(item => item.id === questionId);
 
+  const newAnswerObj = {
+    id: questionId,
+    answer: selectedOption,
+    correctAnswer: correctAnswer
+  };
+
   if (existingIndex !== -1) {
-    previousAnswers[existingIndex].answer = selectedOption;
+    previousAnswers[existingIndex] = newAnswerObj;
   } else {
-    previousAnswers.push({ id: questionId, answer: selectedOption });
+    previousAnswers.push(newAnswerObj);
   }
 
   // Crée l’objet global à enregistrer
@@ -184,6 +194,7 @@ export function saveAnswer(questionId, selectedOption) {
     titre: userInfo.titre,
     prenom: userInfo.prenom,
     nom: userInfo.nom,
+    totalQuestions: Donnees.totalQuestions,
     reponses: previousAnswers
   };
 
@@ -192,6 +203,8 @@ export function saveAnswer(questionId, selectedOption) {
 
   // Pour suivre le processus
   console.log(`✅ Réponse enregistrée : ${questionId} → ${selectedOption}`);
+  console.log("🎯 Réponse correcte attendue :", correctAnswer);
+  console.log("📊 Total de questions :", Donnees.totalQuestions);
   console.log("🗂️ Données complètes enregistrées dans localStorage (userAnswers):", finalAnswers);
 }
 
