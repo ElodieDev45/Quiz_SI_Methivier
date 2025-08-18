@@ -1,5 +1,7 @@
-@import 'variables';
-@import 'mixins';
+@use "sass:color";
+@use 'variables';
+@use 'mixins';
+@use 'error';
 
 * {
   margin: 0;
@@ -10,7 +12,7 @@
 body {
   position: relative;
   min-height: 100vh;
-  padding: $padding-base;
+  padding: variables.$padding-base;
   z-index: 1;
 }
 
@@ -21,7 +23,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: $m-methivier-color-light url('../images/fond-M-mini.webp');
+  background: variables.$m-methivier-color-light url('../images/fond-M-mini.webp');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -29,18 +31,18 @@ body::before {
 }
 
 .container {
-  max-width: $max-width;
+  max-width: variables.$max-width;
   margin: 0 auto;
-  @include transparent-background($primary-color,65%);
-  border-radius: $border-radius-base;
-  box-shadow: $box-shadow-large;
+  @include mixins.transparent-background(variables.$primary-color,65%);
+  border-radius: variables.$border-radius-base;
+  box-shadow: variables.$box-shadow-large;
   overflow: hidden;
 }
 
 .header {
-  @include gradient-bg($dark-blue-gradient-start, $dark-blue-gradient-end);
-  color: $white-color;
-  padding: $padding-medium;
+  @include mixins.gradient-bg(variables.$dark-blue-gradient-start, variables.$dark-blue-gradient-end);
+  color: variables.$white-color;
+  padding: variables.$padding-medium;
   text-align: center;
 
   h1 {
@@ -57,18 +59,18 @@ body::before {
 
 
 .identite-form {
-  @include transparent-background($light-background,40%);
-  padding: $padding-medium;
-  border-radius: $border-radius-base;
-  box-shadow: $box-shadow-medium;
+  @include mixins.transparent-background(variables.$light-background,40%);
+  padding: variables.$padding-medium;
+  border-radius: variables.$border-radius-base;
+  box-shadow: variables.$box-shadow-medium;
   max-width: 500px;
-  margin: $padding-medium auto $padding-medium auto;
+  margin: variables.$padding-medium auto variables.$padding-medium auto;
 
   h2 {
     text-align: center;
     font-size: 1.6em;
-    margin-bottom: $padding-base;
-    color: $dark-color;
+    margin-bottom: variables.$padding-base;
+    color: variables.$dark-color;
   }
 
   #identiteForm {
@@ -77,9 +79,9 @@ body::before {
 
     label {
       font-weight: bold;
-      margin-top: $padding-base;
+      margin-top: variables.$padding-base;
       margin-bottom: 5px;
-      color: $dark-blue-gradient-start;
+      color: variables.$dark-blue-gradient-start;
       background: transparent;
       padding: 6px 10px;
       border-radius: 5px;
@@ -88,13 +90,13 @@ body::before {
 
     input,
     select {
-      @include form-element-styles;
-      margin-bottom: $padding-base;
+      @include mixins.form-element-styles;
+      margin-bottom: variables.$padding-base;
     }
 
     button {
-      @include button-styles($primary-color, $secondary-color);
-      margin-top: $padding-base;
+      @include mixins.button-styles(variables.$primary-color, variables.$secondary-color);
+      margin-top: variables.$padding-base;
       width: fit-content;
       align-self: center;
     }
@@ -103,22 +105,22 @@ body::before {
 
 
 .quiz-content {
-  padding: $padding-medium;
+  padding: variables.$padding-medium;
 
   .user-identity-display {
-    @include transparent-background($hover-background, 80%);
-    border-left: 4px solid $primary-color;
-    padding: $padding-base;
-    margin-bottom: $padding-base;
+    @include mixins.transparent-background(variables.$hover-background, 80%);
+    border-left: 4px solid variables.$primary-color;
+    padding: variables.$padding-base;
+    margin-bottom: variables.$padding-base;
     font-size: 0.95rem;
     font-style: italic;
-    font-family: $font-stack;
+    font-family: variables.$font-stack;
     color: black;
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-    border-radius: $border-radius-small;
-    box-shadow: $box-shadow-medium;
+    border-radius: variables.$border-radius-small;
+    box-shadow: variables.$box-shadow-medium;
 
     p {
       margin: 0;
@@ -142,32 +144,32 @@ body::before {
   .progress-bar {
     width: 100%;
     height: 6px;
-    background: $border-color;
+    background: variables.$border-color;
     border-radius: 3px;
     overflow: hidden;
-    margin-bottom: $padding-base;
+    margin-bottom: variables.$padding-base;
 
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, $m-methivier-color-light, $m-methivier-color);
+      background: linear-gradient(90deg, variables.$m-methivier-color-light, variables.$m-methivier-color);
       transition: width 0.3s ease;
     }
   }
 
   .question-counter {
     text-align: center;
-    margin-bottom: $padding-base;
-    color: $text-color;
+    margin-bottom: variables.$padding-base;
+    color: variables.$text-color;
     font-size: 1.1em;
   }
 }
 
 .question {
-  @include transparent-background($light-background, 70%);
-  border-left: 4px solid $primary-color;
-  padding: $padding-base;
-  margin: $padding-base 0;
-  border-radius: $border-radius-small;
+  @include mixins.transparent-background(variables.$light-background, 70%);
+  border-left: 4px solid variables.$primary-color;
+  padding: variables.$padding-base;
+  margin: variables.$padding-base 0;
+  border-radius: variables.$border-radius-small;
   display: none;
 
   &.active {
@@ -175,7 +177,7 @@ body::before {
   }
 
   h3 {
-    color: $dark-color;
+    color: variables.$dark-color;
     margin-bottom: 15px;
     font-size: 1.3em;
   }
@@ -186,10 +188,10 @@ body::before {
     gap: 12px;
 
     .option {
-      background: $white-color;
-      border: 2px solid $border-color;
+      background: variables.$white-color;
+      border: 2px solid variables.$border-color;
       padding: 15px;
-      border-radius: $border-radius-small;
+      border-radius: variables.$border-radius-small;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
@@ -197,13 +199,13 @@ body::before {
       position: relative;
 
       &:hover {
-        border-color: $primary-color;
-        background: $hover-background;
+        border-color: variables.$primary-color;
+        background: variables.$hover-background;
       }
 
       &.selected {
-        border-color: $primary-color;
-        background: $selected-background;
+        border-color: variables.$primary-color;
+        background: variables.$selected-background;
       }
 
       input[type='radio'] {
@@ -217,20 +219,20 @@ body::before {
 .controls {
   display: flex;
   justify-content: space-between;
-  margin-top: $padding-medium;
-  padding-top: $padding-base;
-  border-top: 1px solid $border-color;
+  margin-top: variables.$padding-medium;
+  padding-top: variables.$padding-base;
+  border-top: 1px solid variables.$border-color;
 
   .btn {
     &-primary {
-      @include button-styles($m-methivier-color, darken($m-methivier-color,5%));
+      @include mixins.button-styles(variables.$m-methivier-color, color.adjust(variables.$m-methivier-color,$lightness: -5%));
     }
 
     &-secondary {
-      @include button-styles($m-methivier-color-light, darken($m-methivier-color-light, 5%));
+      @include mixins.button-styles(variables.$m-methivier-color-light, color.adjust(variables.$m-methivier-color-light, $lightness: -5%));
 
       &:hover {
-        background: darken($m-methivier-color-light, 10%);
+        background: color.adjust(variables.$m-methivier-color-light, $lightness: -10%);
       }
     }
 
@@ -252,30 +254,30 @@ body::before {
   .score {
     font-size: 3em;
     font-weight: bold;
-    margin: $padding-base 0;
+    margin: variables.$padding-base 0;
 
     &.excellent {
-      color: $excellent-score-color;
+      color: variables.$excellent-score-color;
     }
 
     &.good {
-      color: $good-score-color;
+      color: variables.$good-score-color;
     }
 
     &.poor {
-      color: $poor-score-color;
+      color: variables.$poor-score-color;
     }
   }
 
   .recommendations {
-    background: $light-background;
+    background: variables.$light-background;
     padding: 25px;
     border-radius: 10px;
-    margin-top: $padding-base;
+    margin-top: variables.$padding-base;
     text-align: left;
 
     h4 {
-      color: $dark-color;
+      color: variables.$dark-color;
       margin-bottom: 15px;
       font-size: 1.3em;
     }
@@ -285,10 +287,10 @@ body::before {
       padding-left: 0;
 
       li {
-        background: $white-color;
+        background: variables.$white-color;
         padding: 12px;
         margin: 8px 0;
-        border-left: 4px solid $primary-color;
+        border-left: 4px solid variables.$primary-color;
         border-radius: 5px;
       }
     }
@@ -297,18 +299,18 @@ body::before {
   .category-breakdown {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: $padding-base;
-    margin-top: $padding-base;
+    gap: variables.$padding-base;
+    margin-top: variables.$padding-base;
 
     .category-card {
-      background: $white-color;
-      padding: $padding-base;
+      background: variables.$white-color;
+      padding: variables.$padding-base;
       border-radius: 10px;
       text-align: center;
-      box-shadow: $box-shadow-medium;
+      box-shadow: variables.$box-shadow-medium;
 
       h5 {
-        color: $dark-color;
+        color: variables.$dark-color;
         margin-bottom: 10px;
       }
 
@@ -327,11 +329,11 @@ body::before {
   }
 
   .header {
-    padding: $padding-base;
+    padding: variables.$padding-base;
   }
 
   .quiz-content {
-    padding: $padding-base;
+    padding: variables.$padding-base;
   }
 
   .controls {

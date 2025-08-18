@@ -1,3 +1,6 @@
+@use "variables";
+
+@use "sass:color";
 // _mixins.scss
 // PARAMETRES DU DEGRADE
 @mixin gradient-bg($start-color, $end-color) { 
@@ -5,10 +8,10 @@
 }
 
 // PARAMETRE DES BOUTONS
-@mixin button-styles($bg-start, $bg-end, $text-color: $white-color) {
+@mixin button-styles($bg-start, $bg-end, $text-color: variables.$white-color) {
     padding: 12px 30px;
     border: none;
-    border-radius: $border-radius-btn; // Nécessite $border-radius-btn des variables
+    border-radius: variables.$border-radius-btn; // Nécessite $border-radius-btn des variables
     font-size: 1em;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -17,7 +20,7 @@
     @include gradient-bg($bg-start, $bg-end);
 
     &:hover {
-        background: linear-gradient(135deg, darken($bg-start, 10%), darken($bg-end, 10%));
+        background: linear-gradient(135deg, color.adjust($bg-start, $lightness: -10%), color.adjust($bg-end, $lightness: -10%));
     }
 }
 
@@ -25,7 +28,7 @@
 @mixin form-element-styles {
   padding: 10px;
   font-size: 1em;
-  border: 1px solid $border-color;
+  border: 1px solid variables.$border-color;
   border-radius: 5px;
   width: 100%;
 }
@@ -33,4 +36,14 @@
 // BACKGROUND SEMI TRANSPARENT
 @mixin transparent-background($color, $alpha: 0.5) {
   background-color: rgba($color, $alpha);
+}
+
+//style pour message (erreur, infos...)
+@mixin message-style($bg, $border, $text-color) {
+  background-color: $bg;
+  border: 1px solid $border;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  color: $text-color;
 }
