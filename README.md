@@ -32,6 +32,7 @@ Ce projet propose un système complet pour **créer, modifier et suivre dynamiqu
 - [Architecture JavaScript Modulaire](#architecture-javascript-modulaire)
 - [Utilisation](#utilisation)
 - [Notes complémentaires](#notes-complementaires)
+- [Protection sass](#protection-sass)
 - [Structure/Formats des fichiers de données](#structureformats-des-fichiers-de-donnees)
 
 
@@ -266,6 +267,36 @@ Le fichier questions.json sera mis à jour automatiquement à chaque modificatio
 - Le projet permet une adaptation rapide à tout sujet ou thème.
 - Aucune dépendance inutile : environnement Python et Node.js propre et à jour.
 - L’environnement est audité sans vulnérabilités.
+
+---
+
+<a name="protection-sass"></a>
+## 🛡️ Protection contre les extensions Sass (Live Sass Compiler)
+
+Afin d’éviter tout comportement inattendu lors de la compilation des fichiers SCSS, le projet contient une configuration locale dans `.vscode/settings.json` qui **désactive les extensions Sass comme Live Sass Compiler**.
+
+### ✅ Pourquoi ?
+Certaines extensions peuvent :
+- Ignorer les chemins de sortie définis dans les scripts
+- Générer des fichiers CSS dans le mauvais dossier (`sass/` au lieu de `css/`)
+- Créer des conflits avec le système de compilation automatisé (`launch.ps1`)
+
+### 🔒 Ce que fait la configuration :
+
+```json
+{
+  "liveSassCompile.settings.formats": [],
+  "liveSassCompile.settings.excludeList": ["**/*.scss"],
+  "liveSassCompile.settings.generateMap": false,
+  "liveSassCompile.settings.autoprefix": [],
+  "liveSassCompile.settings.showOutputWindow": false,
+  "liveSassCompile.settings.compileOnSave": false
+}
+```
+
+### 📌 Consigne :
+- Si vous utilisez VSCode avec une extension Sass active, **ne modifiez pas cette configuration**.
+- Le script `launch.ps1` gère la compilation automatiquement et proprement.
 
 ---
 
