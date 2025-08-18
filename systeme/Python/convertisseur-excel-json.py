@@ -88,14 +88,17 @@ try:
 
         titre = df_infos.at[0, "Titre-principal"] if "Titre-principal" in df_infos.columns else "Titre par défaut"
         description = df_infos.at[0, "Description-projet"] if "Description-projet" in df_infos.columns else ""
+        graphique = df_infos.at[0, "Graphique-resultats"] if "Graphique-resultats" in df_infos.columns else ""
 
         print("🎯 Titre extrait :", titre)
         print("📝 Description extraite :", description)
+        print("📊 Graphique extrait :", graphique)
 
         with open(config_path, "w", encoding="utf-8") as f:
             json.dump({
                 "titre-principal": titre,
-                "description-projet": description
+                "description-projet": description,
+                "graphique-resultats": graphique,
             }, f, ensure_ascii=False, indent=2)
 
         print(f"✅ Fichier config.json généré : {config_path}")
