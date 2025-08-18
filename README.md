@@ -1,10 +1,14 @@
-# 🧠 Projet : Questionnaire Informatique
+# 🧠 Projet : Questionnaire
 
 ![Made with Python](https://img.shields.io/badge/Made%20with-Python-3776AB?style=flat&logo=python&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-22.18.0-green?logo=node.js) -&nbsp;
 ![Excel Powered](https://img.shields.io/badge/Data%20Source-Excel-217346?style=flat&logo=microsoft-excel&logoColor=white)
-![Auto-Updating JSON](https://img.shields.io/badge/JSON%20Output-Auto--Updating-4B8BBE?style=flat&logo=json&logoColor=white)
+![Auto-Updating JSON](https://img.shields.io/badge/JSON%20Output-Auto--Updating-4B8BBE?style=flat&logo=json&logoColor=white) -&nbsp;
 ![SCSS to CSS](https://img.shields.io/badge/Style-SCSS→CSS-DD1B16?style=flat&logo=sass&logoColor=white)
+![Sass Migrated](https://img.shields.io/badge/Sass-%40use%20%26%20%40forward-green?logo=sass)
+![PowerShell Script](https://img.shields.io/badge/PowerShell-launch.ps1-blue?logo=powershell)
 
+----
 
 Ce projet propose un système complet pour **créer, modifier et suivre dynamiquement un questionnaire** depuis un fichier Excel. Il surveille en temps réel les changements dans le tableur et génère automatiquement un fichier JSON contenant toutes les informations du quiz (titres, questions, réponses).
 
@@ -83,6 +87,7 @@ Ce projet propose un système complet pour **créer, modifier et suivre dynamiqu
 - `sass@1.90.0` → SCSS → CSS
 - `g@2.0.1` → Outils CLI
 - `chokidar@^4.0.3` → Déclencheur de compilation SCSS
+- `sass-migrator@^2.4.2` → Transforme la syntaxe SCSS ancienne vers la nouvelle
 
 ---
 
@@ -125,6 +130,7 @@ Ce projet propose un système complet pour **créer, modifier et suivre dynamiqu
 
     # 🧪 Environnements & modules
     ├── .venv/                          # Environnement virtuel Python (isole les dépendance)
+    ├── .vscode/                        # Paramètres locaux VSCode (désactive Live Sass Compiler), 
     ├── node_modules/                   # Modules Node.js installés automatiquement
 
     # 🎭 Personnalisation & effets
@@ -141,6 +147,13 @@ Ce projet propose un système complet pour **créer, modifier et suivre dynamiqu
 
 <a name="installation"></a>
 ## ⚙️ Installation
+
+### 🚧 Pré-requis :
+
+- `Python` ≥ 3.11.4
+- `Node.js` ≥ 22.18.0
+- `NVM` installé
+- `Excel` version locale ou en ligne
 
 ### 🧨 Démarrage rapide avec ``START.bat``
 
@@ -212,12 +225,35 @@ npm install
 <a name="compilation-des-styles-scss"></a>
 ## 🎨 Compilation des styles (SCSS)
 
-```scss
+Le projet utilise ***Sass*** pour *compiler les fichiers* `.scss` en `.css`.
 
-    sass style.scss style.css
-    sass --watch style.scss style.css  # Pour compiler automatiquement
+### 🔧 Commandes utiles :
 
+```bash
+sass style.scss style.css
+sass --watch style.scss style.css  # Pour compiler automatiquement (compilation déjà activée via launch.ps1 ou avec le START.bat)
 ```
+
+### 🧰 Migration Sass (`sass-migrator`)
+
+Le projet a été **migré** vers la ***syntaxe moderne*** de Sass (`@use`, `@forward`) à l’aide de l’outil officiel `sass-migrator`.
+
+#### 📦 Commande utilisée pour la migration :
+
+```bash
+npx sass-migrator module chemin/vers/fichier.scss
+```
+
+#### 📌 Pourquoi ?
+
+- Sass ne prend plus en charge `@import` dans les versions récentes
+- La syntaxe modulaire améliore la lisibilité et la maintenabilité
+- On évite ainsi les conflits et les erreurs de compilation
+
+#### 🛡️ À retenir :
+
+***Tous*** *les fichiers SCSS du projet ont **déjà été migrés**,* cependant,
+> Si vous **ajoutez** de nouveaux fichiers SCSS, pensez à **relancer** la commande *ci-dessus* pour rester **conforme**.
 
 ---
 

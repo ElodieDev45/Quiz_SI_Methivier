@@ -2,6 +2,9 @@
 # 🔄🌐 Script de transformation du fichier README.md en README.html
 # Convertit le fichier Markdown (.md) en page HTML consultable via navigateur
 # pour une lecture visuelle directe et améliorée du contenu du projet.
+#
+# ATTENTION !! : LANCER "Run Python File" sous VERSION PYTHON 3.11.4 
+# si lancé sous une autre version il ne repèrera pas markdown et la génération ne se fera pas.
 """
 
 import markdown
