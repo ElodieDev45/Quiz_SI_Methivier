@@ -1,0 +1,8 @@
+{
+  "liveSassCompile.settings.formats": [],
+  "liveSassCompile.settings.excludeList": ["**/*.scss"],
+  "liveSassCompile.settings.generateMap": false,
+  "liveSassCompile.settings.autoprefix": [],
+  "liveSassCompile.settings.showOutputWindow": false,
+  "liveSassCompile.settings.compileOnSave": false
+}
