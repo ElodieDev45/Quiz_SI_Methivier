@@ -3,5 +3,11 @@
     "chokidar": "^4.0.3",
     "g": "^2.0.1",
     "sass": "^1.89.2"
+  },
+  "devDependencies": {
+    "sass-migrator": "^2.4.2"
+  },
+  "scripts": {
+    "migrate-sass": "sass-migrator division **/*.scss"
   }
 }
