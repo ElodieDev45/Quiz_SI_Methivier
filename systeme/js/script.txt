@@ -107,7 +107,7 @@ function nextQuestion() {
     } else if (currentQuestionIndex === totalQuestions - 1) {
         // C'est la dernière question, afficher le bouton "Terminer"
         document.getElementById('nextBtn').style.display = 'none';
-        document.getElementById('finishBtn').style.display = 'block';
+        document.getElementById('resultBtn').style.display = 'block';
     }
 }
 
@@ -125,17 +125,17 @@ function previousQuestion() {
 function updateNavigationButtons() {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    const finishBtn = document.getElementById('finishBtn');
+    const resultBtn = document.getElementById('resultBtn');
 
     prevBtn.disabled = currentQuestionIndex === 0;
 
     if (currentQuestionIndex === totalQuestions - 1) {
         nextBtn.style.display = 'none';
-        finishBtn.style.display = 'block';
-        finishBtn.disabled = !userAnswers[quizData[currentQuestionIndex].id]; // Désactiver Terminer si pas de réponse à la dernière question
+        resultBtn.style.display = 'block';
+        resultBtn.disabled = !userAnswers[quizData[currentQuestionIndex].id]; // Désactiver Terminer si pas de réponse à la dernière question
     } else {
         nextBtn.style.display = 'block';
-        finishBtn.style.display = 'none';
+        resultBtn.style.display = 'none';
         nextBtn.disabled = !userAnswers[quizData[currentQuestionIndex].id]; // Désactiver Suivant si pas de réponse
     }
 }
@@ -272,7 +272,7 @@ function restartQuiz() {
     
     // Réinitialiser les boutons de navigation
     document.getElementById('nextBtn').style.display = 'block';
-    document.getElementById('finishBtn').style.display = 'none';
+    document.getElementById('resultBtn').style.display = 'none';
     updateNavigationButtons();
 
     // Nettoyer les messages de score et les recommandations

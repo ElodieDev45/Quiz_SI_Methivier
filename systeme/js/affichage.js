@@ -95,7 +95,7 @@ export function renderQuestion() {
 export function updateNavigationButtons() {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    const finishBtn = document.getElementById('finishBtn');
+    const resultBtn = document.getElementById('resultBtn');
 
     prevBtn.disabled = Navigation.currentQuestionIndex === 0;
 
@@ -104,10 +104,10 @@ export function updateNavigationButtons() {
 
     // ✅ On ne s’occupe PAS de l’index ici : les boutons sont gérés depuis navigation.js
     nextBtn.style.display = 'block';
-    finishBtn.style.display = 'none';
+    resultBtn.style.display = 'none';
 
     nextBtn.disabled = !answered;
-    finishBtn.disabled = !answered;
+    resultBtn.disabled = !answered;
 }
 
 // Fonction pour mettre à jour la barre de progression
@@ -138,12 +138,13 @@ export function afficherTitreResultat(scoreClass) {
 
 // Affichage du nom complet utilisateur sous résultats
 export function afficherIdentite(titre, prenom, nom) {
-  const resultsSection = document.getElementById("results");
   const titreElement = document.getElementById("titreResultat");
+  const resultsSection = document.getElementById("results");
+  
 
   const identityBlock = document.createElement("div");
   identityBlock.classList.add("result-identity");
-  identityBlock.innerHTML = `<p>🧑‍🎓 Participant : ${titre} ${prenom} ${nom}</p>`;
+  identityBlock.innerHTML = `<p>🧑 Participant : ${titre} ${prenom} ${nom}</p>`;
   resultsSection.insertBefore(identityBlock, titreElement);
 }
 
@@ -170,24 +171,24 @@ export function afficherRecommendations(scoreClass) {
 
 // Génèration du graphique selon le type choisi
 const typesGraphiques = {
-  camembert: (correct, incorrect, total, container) =>
+  camembert: (correct, incorrect, total, correctAnswerPercent, container) =>
     Graphiques.afficherCamembertReponses(correct, incorrect, total, container),
-  diagramme: (correct, incorrect, total, container) => {
+  diagramme: (correct, incorrect, total, correctAnswerPercent, container) => {
     const repartition = calculerRepartition(correct, incorrect, total, container);
     Graphiques.afficherDiagrammeReponses(repartition, container);
   },
-  jauge: (correct, incorrect, total, container) =>
-    Graphiques.afficherJaugeReponses(correct, incorrect, total, container)
+  jauge: (correct, incorrect, total, correctAnswerPercent, container) =>
+    Graphiques.afficherJaugeReponses(correctAnswerPercent, container)
 };
 
 // Affichage graphique
-export function afficherGraphique(type, correct, incorrect, total, containerId = "conteneurGraphique") {
+export function afficherGraphique(type, correct, incorrect, total, correctAnswerPercent, containerId = "conteneurGraphique") {
   const container = document.getElementById(containerId);
   container.innerHTML = "";
 
   const render = typesGraphiques[type];
   if (render) {
-    render(correct, incorrect, total, container);
+    render(correct, incorrect, total, correctAnswerPercent, container);
   } else {
     console.warn("Type de graphique non reconnu :", type);
     container.textContent = "Type de graphique non reconnu.";

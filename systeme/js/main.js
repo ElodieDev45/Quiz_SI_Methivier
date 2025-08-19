@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (prev) prev.addEventListener("click", Navigation.previousQuestion);
 
   // Fin et redémarrage du quiz
-  const finish = document.getElementById("finishBtn");
+  const finish = document.getElementById("resultBtn");
   if (finish) finish.addEventListener("click", Resultats.displayResults);
 
   const restart = document.getElementById("restartBtn");

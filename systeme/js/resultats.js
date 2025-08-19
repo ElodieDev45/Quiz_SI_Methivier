@@ -65,7 +65,7 @@ export function restartQuiz() {
     Affichage.updateProgressBar();
     Affichage.updateQuestionCounter();
     document.getElementById('nextBtn').style.display = 'block';
-    document.getElementById('finishBtn').style.display = 'none';
+    document.getElementById('resultBtn').style.display = 'none';
     Affichage.updateNavigationButtons();
 
     document.getElementById('finalScore').classList.remove('excellent', 'good', 'poor');
@@ -152,15 +152,15 @@ export async function displayResults() {
 
   // 2. Calcul du score
   const finalScore = reponses.filter(r => r.answer === r.correctAnswer).length;
-  const percentage = (finalScore / totalQuestions) * 100;
+  const correctAnswerPercent = Math.round((finalScore / totalQuestions) * 100);
 
   // 3. Déterminer le message et la classe
   let message = "";
   let scoreClass = "";
-  if (percentage === 100) {
+  if (correctAnswerPercent === 100) {
     message = "Félicitations ! Vous avez un niveau d'expert en informatique.";
     scoreClass = "excellent";
-  } else if (percentage >= 75) {
+  } else if (correctAnswerPercent >= 75) {
     message = "Très bien ! Vous avez de solides connaissances en informatique.";
     scoreClass = "good";
   } else {
@@ -192,7 +192,7 @@ export async function displayResults() {
     const correct = finalScore;
     const incorrect = totalQuestions - correct;
 
-    Affichage.afficherGraphique(typeGraphique, correct, incorrect, totalQuestions);
+    Affichage.afficherGraphique(typeGraphique, correct, incorrect, totalQuestions, correctAnswerPercent);
   } catch (error) {
     console.error("❌ Erreur lors du chargement du graphique :", error);
     Affichage.afficherErreurGraphique("Erreur lors du chargement du graphique.");

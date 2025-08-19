@@ -70,7 +70,7 @@
             <div class="controls">
                 <button class="btn btn-secondary" id="prevBtn" disabled>Précédent</button>
                 <button class="btn btn-primary" id="nextBtn">Suivant</button>
-                <button class="btn btn-primary" id="finishBtn" style="display: none;">Terminer</button>
+                <button class="btn btn-primary" id="resultBtn" style="display: none;">Terminer</button>
             </div>
         </div>
     </div>

@@ -12,7 +12,7 @@
 body {
   position: relative;
   min-height: 100vh;
-  padding: variables.$padding-base;
+  padding: variables.$padding-S;
   z-index: 1;
 }
 
@@ -42,7 +42,7 @@ body::before {
 .header {
   @include mixins.gradient-bg(variables.$dark-blue-gradient-start, variables.$dark-blue-gradient-end);
   color: variables.$white-color;
-  padding: variables.$padding-medium;
+  padding: variables.$padding-M;
   text-align: center;
 
   h1 {
@@ -60,16 +60,16 @@ body::before {
 
 .identite-form {
   @include mixins.transparent-background(variables.$light-background,40%);
-  padding: variables.$padding-medium;
+  padding: variables.$padding-M;
   border-radius: variables.$border-radius-base;
   box-shadow: variables.$box-shadow-medium;
   max-width: 500px;
-  margin: variables.$padding-medium auto variables.$padding-medium auto;
+  margin: variables.$padding-M auto variables.$padding-M auto;
 
   h2 {
     text-align: center;
     font-size: 1.6em;
-    margin-bottom: variables.$padding-base;
+    margin-bottom: variables.$padding-S;
     color: variables.$dark-color;
   }
 
@@ -79,7 +79,7 @@ body::before {
 
     label {
       font-weight: bold;
-      margin-top: variables.$padding-base;
+      margin-top: variables.$padding-S;
       margin-bottom: 5px;
       color: variables.$dark-blue-gradient-start;
       background: transparent;
@@ -91,12 +91,12 @@ body::before {
     input,
     select {
       @include mixins.form-element-styles;
-      margin-bottom: variables.$padding-base;
+      margin-bottom: variables.$padding-S;
     }
 
     button {
       @include mixins.button-styles(variables.$primary-color, variables.$secondary-color);
-      margin-top: variables.$padding-base;
+      margin-top: variables.$padding-S;
       width: fit-content;
       align-self: center;
     }
@@ -105,13 +105,13 @@ body::before {
 
 
 .quiz-content {
-  padding: variables.$padding-medium;
+  padding: variables.$padding-M;
 
   .user-identity-display {
     @include mixins.transparent-background(variables.$hover-background, 80%);
     border-left: 4px solid variables.$primary-color;
-    padding: variables.$padding-base;
-    margin-bottom: variables.$padding-base;
+    padding: variables.$padding-S;
+    margin-bottom: variables.$padding-S;
     font-size: 0.95rem;
     font-style: italic;
     font-family: variables.$font-stack;
@@ -147,7 +147,7 @@ body::before {
     background: variables.$border-color;
     border-radius: 3px;
     overflow: hidden;
-    margin-bottom: variables.$padding-base;
+    margin-bottom: variables.$padding-S;
 
     .progress-fill {
       height: 100%;
@@ -158,17 +158,18 @@ body::before {
 
   .question-counter {
     text-align: center;
-    margin-bottom: variables.$padding-base;
-    color: variables.$text-color;
-    font-size: 1.1em;
+    margin-bottom: variables.$padding-S;
+    color: variables.$white-color;
+    font-weight: bold;
+    font-size: 1.2em;
   }
 }
 
 .question {
   @include mixins.transparent-background(variables.$light-background, 70%);
   border-left: 4px solid variables.$primary-color;
-  padding: variables.$padding-base;
-  margin: variables.$padding-base 0;
+  padding: variables.$padding-S;
+  margin: variables.$padding-S 0;
   border-radius: variables.$border-radius-small;
   display: none;
 
@@ -219,8 +220,8 @@ body::before {
 .controls {
   display: flex;
   justify-content: space-between;
-  margin-top: variables.$padding-medium;
-  padding-top: variables.$padding-base;
+  margin-top: variables.$padding-M;
+  padding-top: variables.$padding-S;
   border-top: 1px solid variables.$border-color;
 
   .btn {
@@ -244,83 +245,136 @@ body::before {
 
 .results {
   display: none;
-  text-align: center;
-  padding: 40px;
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease;
+
+  .conteneurGraphique{
+    display: flex;
+    justify-content: center;
+
+    #resultChart{ 
+    margin: variables.$padding-L variables.$padding-XL;
+    }
+  }
 
   &.active {
     display: block;
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+    padding: 40px;
   }
 
-  .score {
-    font-size: 3em;
-    font-weight: bold;
-    margin: variables.$padding-base 0;
+  .controls{
+    display: flex;
+    justify-content: flex-end;
+  }
 
-    &.excellent {
-      color: variables.$excellent-score-color;
-    }
-
-    &.good {
-      color: variables.$good-score-color;
-    }
-
-    &.poor {
-      color: variables.$poor-score-color;
+  .btn {
+    &-primary {
+      @include mixins.button-styles(variables.$dark-color, color.adjust(variables.$dark-color,$lightness: -5%));
     }
   }
 
-  .recommendations {
-    background: variables.$light-background;
-    padding: 25px;
-    border-radius: 10px;
-    margin-top: variables.$padding-base;
-    text-align: left;
+  .result-identity{
+    color: variables.$white-color;
+    font-size: 1.2em;
+  }
 
-    h4 {
-      color: variables.$dark-color;
-      margin-bottom: 15px;
+  #titreResultat{
+    color: variables.$white-color;
+    font-size: 2.2em;
+    text-align: center;
+    padding: variables.$padding-M 0 0 0;
+  }
+
+  .resumeTexte {
+    text-align: center;
+    padding: variables.$padding-XS 0 variables.$padding-S 0;
+    @include mixins.transparent-background(variables.$dark-blue-gradient-start,25%);
+
+    .score{
+      font-size: 2.5em;
+      font-weight: bold;
+      padding: 0 0 variables.$padding-XS 0;
+      &.excellent {
+        color: variables.$excellent-score-color;
+      }
+
+      &.good {
+        color: variables.$good-score-color;
+      }
+
+      &.poor {
+        color: variables.$poor-score-color;
+      }
+    }
+
+    .message{
       font-size: 1.3em;
-    }
-
-    ul {
-      list-style: none;
-      padding-left: 0;
-
-      li {
-        background: variables.$white-color;
-        padding: 12px;
-        margin: 8px 0;
-        border-left: 4px solid variables.$primary-color;
-        border-radius: 5px;
-      }
+      font-weight: normal;
+      color: white;
+      // padding: 0 0 variables.$padding-S 0;
     }
   }
 
-  .category-breakdown {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: variables.$padding-base;
-    margin-top: variables.$padding-base;
+  // .recommendations {
+  //   background: variables.$light-background;
+  //   padding: 25px;
+  //   border-radius: 10px;
+  //   margin-top: variables.$padding-S;
+  //   text-align: left;
 
-    .category-card {
-      background: variables.$white-color;
-      padding: variables.$padding-base;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: variables.$box-shadow-medium;
+  //   h4 {
+  //     color: variables.$dark-color;
+  //     margin-bottom: 15px;
+  //     font-size: 1.3em;
+  //   }
 
-      h5 {
-        color: variables.$dark-color;
-        margin-bottom: 10px;
-      }
+  //   ul {
+  //     list-style: none;
+  //     padding-left: 0;
 
-      .category-score {
-        font-size: 2em;
-        font-weight: bold;
-        margin: 10px 0;
-      }
-    }
-  }
+  //     li {
+  //       background: variables.$white-color;
+  //       padding: 12px;
+  //       margin: 8px 0;
+  //       border-left: 4px solid variables.$primary-color;
+  //       border-radius: 5px;
+  //     }
+  //   }
+  // }
+
+  // .category-breakdown {
+  //   display: grid;
+  //   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  //   gap: variables.$padding-S;
+  //   margin-top: variables.$padding-S;
+
+  //   .category-card {
+  //     background: variables.$white-color;
+  //     padding: variables.$padding-S;
+  //     border-radius: 10px;
+  //     text-align: center;
+  //     box-shadow: variables.$box-shadow-medium;
+
+  //     h5 {
+  //       color: variables.$dark-color;
+  //       margin-bottom: 10px;
+  //     }
+
+  //     .category-score {
+  //       font-size: 2em;
+  //       font-weight: bold;
+  //       margin: 10px 0;
+  //     }
+  //   }
+  // }
 }
 
 @media (max-width: 600px) {
@@ -329,11 +383,11 @@ body::before {
   }
 
   .header {
-    padding: variables.$padding-base;
+    padding: variables.$padding-S;
   }
 
   .quiz-content {
-    padding: variables.$padding-base;
+    padding: variables.$padding-S;
   }
 
   .controls {

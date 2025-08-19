@@ -49,8 +49,8 @@ export function gererFormulaireIdentite() {
 // Fonction utilitaire pour afficher/masquer les boutons de navigation
 function toggleButtons(nextVisible, finishVisible) {
     document.getElementById('nextBtn').style.display = nextVisible ? 'block' : 'none';
-    document.getElementById('finishBtn').style.display = finishVisible ? 'block' : 'none';
-    document.getElementById('finishBtn').disabled = !finishVisible;
+    document.getElementById('resultBtn').style.display = finishVisible ? 'block' : 'none';
+    document.getElementById('resultBtn').disabled = !finishVisible;
 }
 
 // Fonction locale d'enregistrement des réponses
