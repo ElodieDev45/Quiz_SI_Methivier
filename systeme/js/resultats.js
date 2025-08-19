@@ -4,87 +4,6 @@ import * as Navigation from './navigation.js'; // Pour le restart
 
 export let score = 0; // Score global du quiz
 
-// Fonction principale d'affichage des résultats
-export function displayResults() {
-    document.querySelector('.quiz-content').style.display = 'none';
-    const resultsDiv = document.getElementById('results');
-    resultsDiv.classList.add('active');
-
-    const finalScoreElement = document.getElementById('finalScore');
-    finalScoreElement.textContent = `${score}/${Donnees.totalQuestions}`;
-
-    const scoreMessageElement = document.getElementById('scoreMessage');
-    let message = '';
-    let scoreClass = '';
-
-    const percentage = (score / Donnees.totalQuestions) * 100;
-
-    if (percentage === 100) {
-        message = "Félicitations ! Vous avez un niveau d'expert en informatique.";
-        scoreClass = 'excellent';
-    } else if (percentage >= 75) {
-        message = "Très bien ! Vous avez de solides connaissances en informatique.";
-        scoreClass = 'good';
-    } else {
-        message = "Bonne tentative ! Vous avez besoin de réviser certains concepts.";
-        scoreClass = 'poor';
-    }
-
-    scoreMessageElement.textContent = message;
-    finalScoreElement.className = 'score ' + scoreClass;
-
-    // 👤 Ajout du bloc identité utilisateur
-    const identityBlock = document.createElement('div');
-    identityBlock.classList.add('result-identity');
-    const { titre, nom, prenom } = Donnees.utilisateur.identite;
-    identityBlock.innerHTML = `<p>🧑‍🎓 Participant : ${titre} ${prenom} ${nom}</p>`;
-    resultsDiv.insertBefore(identityBlock, finalScoreElement);
-
-    displayCategoryBreakdown();
-    displayRecommendations(scoreClass);
-}
-
-// Graphique camembert de réponses
-export function afficherCamembertReponses() {
-    const userAnswers = JSON.parse(localStorage.getItem('userAnswers'));
-    let correct = 0;
-    let incorrect = 0;
-
-    Donnees.quizData.forEach(q => {
-        const userAnswer = userAnswers.find(obj => obj.id === q.id)?.answer;
-        if (userAnswer === q.correctAnswer) {
-            correct++;
-        } else {
-            incorrect++;
-        }
-    });
-
-    const canvas = document.createElement('canvas');
-    canvas.id = 'resultChart';
-    canvas.width = 400;
-    canvas.height = 400;
-    document.getElementById('results').appendChild(canvas);
-
-    const ctx = canvas.getContext('2d');
-    new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['Bonnes réponses', 'Mauvaises réponses'],
-            datasets: [{
-                data: [correct, incorrect],
-                backgroundColor: ['#4CAF50', '#F44336']
-            }]
-        },
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Répartition des réponses'
-                }
-            }
-        }
-    });
-}
 
 // Détail par catégorie
 export function displayCategoryBreakdown() {
@@ -106,6 +25,7 @@ export function displayCategoryBreakdown() {
     }
 }
 
+
 // Suggestions personnalisées
 export function displayRecommendations(scoreClass) {
     const recommendationsDiv = document.getElementById('recommendations');
@@ -126,6 +46,7 @@ export function displayRecommendations(scoreClass) {
     recommendationsDiv.appendChild(ul);
 }
 
+
 // Redémarrage complet du quiz
 export function restartQuiz() {
     Navigation.currentQuestionIndex = 0;
@@ -133,6 +54,11 @@ export function restartQuiz() {
     score = 0;
 
     document.getElementById('results').classList.remove('active');
+
+    // Supprimer précédent graphique si existant
+    const oldCanvas = document.getElementById('resultChart');
+    if (oldCanvas) oldCanvas.remove();
+
     document.querySelector('.quiz-content').style.display = 'block';
 
     Affichage.renderQuestion();
@@ -157,9 +83,10 @@ export function restartQuiz() {
     document.getElementById('identiteSection').style.display = 'block';
 }
 
+
 // Sauvegarde réponse utilisateur
 export function saveAnswer(questionId, selectedOption) {
-  // Récupère les données d'identité
+  // 1. Récupère les données d'identité
   const quizData = JSON.parse(localStorage.getItem("quizData")) || {};
   const userInfo = quizData.identite || {
     titre: "",
@@ -167,20 +94,24 @@ export function saveAnswer(questionId, selectedOption) {
     nom: ""
   };
 
-  // Récupère les réponses existantes
+  // 2. Récupère les réponses existantes
   const previousAnswers = JSON.parse(localStorage.getItem("userAnswers"))?.reponses || [];
 
-  // Trouve la question correspondante
+  // 3. Trouve la question correspondante
   const question = Donnees.quizData.find(q => q.id === questionId);
   const correctAnswer = question?.correctAnswer || null;
 
-  // Met à jour ou ajoute la réponse
+  // 4. Met à jour ou ajoute la réponse
   const existingIndex = previousAnswers.findIndex(item => item.id === questionId);
+
+  // 5. Récupère la catégorie de la catégorie de la question
+  const category = question?.category || "Autres";
 
   const newAnswerObj = {
     id: questionId,
     answer: selectedOption,
-    correctAnswer: correctAnswer
+    correctAnswer: correctAnswer,
+    category: category
   };
 
   if (existingIndex !== -1) {
@@ -189,7 +120,7 @@ export function saveAnswer(questionId, selectedOption) {
     previousAnswers.push(newAnswerObj);
   }
 
-  // Crée l’objet global à enregistrer
+  // 6. Crée l’objet global à enregistrer
   const finalAnswers = {
     titre: userInfo.titre,
     prenom: userInfo.prenom,
@@ -198,13 +129,72 @@ export function saveAnswer(questionId, selectedOption) {
     reponses: previousAnswers
   };
 
-  // Enregistre dans le localStorage
+  // 7. Enregistre dans le localStorage
   localStorage.setItem("userAnswers", JSON.stringify(finalAnswers));
 
-  // Pour suivre le processus
+  // 8. Pour suivre le processus
   console.log(`✅ Réponse enregistrée : ${questionId} → ${selectedOption}`);
   console.log("🎯 Réponse correcte attendue :", correctAnswer);
   console.log("📊 Total de questions :", Donnees.totalQuestions);
   console.log("🗂️ Données complètes enregistrées dans localStorage (userAnswers):", finalAnswers);
 }
 
+// Affichage résultats
+export async function displayResults() {
+  // 1. Récupérer les données du localStorage
+  const userData = JSON.parse(localStorage.getItem("userAnswers"));
+  if (!userData || !userData.reponses) {
+    console.error("❌ Données utilisateur manquantes ou incomplètes.");
+    return;
+  }
+
+  const { titre, prenom, nom, totalQuestions, reponses } = userData;
+
+  // 2. Calcul du score
+  const finalScore = reponses.filter(r => r.answer === r.correctAnswer).length;
+  const percentage = (finalScore / totalQuestions) * 100;
+
+  // 3. Déterminer le message et la classe
+  let message = "";
+  let scoreClass = "";
+  if (percentage === 100) {
+    message = "Félicitations ! Vous avez un niveau d'expert en informatique.";
+    scoreClass = "excellent";
+  } else if (percentage >= 75) {
+    message = "Très bien ! Vous avez de solides connaissances en informatique.";
+    scoreClass = "good";
+  } else {
+    message = "Bonne tentative ! Vous avez besoin de réviser certains concepts.";
+    scoreClass = "poor";
+  }
+
+  // 4. Appel des fonctions d'affichage
+  Affichage.afficherSectionResultats(scoreClass);
+  Affichage.afficherTitreResultat(scoreClass);
+  Affichage.afficherIdentite(titre, prenom, nom);
+  Affichage.afficherResume(finalScore, totalQuestions, scoreClass, message);
+
+  // 5. Afficher les détails
+  Affichage.afficherCategoryBreakdown();
+  Affichage.afficherRecommendations(scoreClass);
+
+  // 6. Afficher le graphique selon config.json
+  try {
+    const response = await fetch('./config.json');
+    const config = await response.json();
+    let typeGraphique = config["graphique-resultats"]?.toLowerCase();
+
+    if (!typeGraphique || !["camembert", "jauge", "diagramme"].includes(typeGraphique)) {
+      console.warn("⚠️ Type de graphique non reconnu ou absent dans config.json. Utilisation du type par défaut : 'camembert'.");
+      typeGraphique = "camembert";
+    }
+
+    const correct = finalScore;
+    const incorrect = totalQuestions - correct;
+
+    Affichage.afficherGraphique(typeGraphique, correct, incorrect, totalQuestions);
+  } catch (error) {
+    console.error("❌ Erreur lors du chargement du graphique :", error);
+    Affichage.afficherErreurGraphique("Erreur lors du chargement du graphique.");
+  }
+}

@@ -1,6 +1,7 @@
 import * as Navigation from './navigation.js';
 import * as Donnees from './donnees.js';
 import * as Resultats from './resultats.js';
+import * as Graphiques from './graphiques.js';
 
 // Fonction pour afficher les informations d'identité de l'utilisateur
 export function renderUserIdentity(identityData) {
@@ -119,4 +120,82 @@ export function updateProgressBar() {
 // Fonction pour mettre à jour le compteur de questions
 export function updateQuestionCounter() {
     document.getElementById('currentQuestionNumber').textContent = Navigation.currentQuestionIndex + 1;
+}
+
+// Affichage section résultats + style selon score
+export function afficherSectionResultats(scoreClass) {
+  document.querySelector(".quiz-content").style.display = "none";
+  const resultsSection = document.getElementById("results");
+  resultsSection.classList.add("active");
+}
+
+// Mise à jour du titre des résultats
+export function afficherTitreResultat(scoreClass) {
+  const titreElement = document.getElementById("titreResultat");
+  titreElement.textContent = "Vos résultats";
+  titreElement.className = scoreClass;
+}
+
+// Affichage du nom complet utilisateur sous résultats
+export function afficherIdentite(titre, prenom, nom) {
+  const resultsSection = document.getElementById("results");
+  const titreElement = document.getElementById("titreResultat");
+
+  const identityBlock = document.createElement("div");
+  identityBlock.classList.add("result-identity");
+  identityBlock.innerHTML = `<p>🧑‍🎓 Participant : ${titre} ${prenom} ${nom}</p>`;
+  resultsSection.insertBefore(identityBlock, titreElement);
+}
+
+// Résumé score et affichage message personnalisé
+export function afficherResume(score, totalQuestions, scoreClass, message) {
+  const resumeElement = document.getElementById("resumeTexte");
+  resumeElement.innerHTML = `
+    <p class="score ${scoreClass}">Score : ${score}/${totalQuestions}</p>
+    <p class="message">${message}</p>
+  `;
+}
+
+// Performances par catégorie de questions
+export function afficherCategoryBreakdown() {
+  // À compléter selon ta logique métier
+  console.log("📊 Affichage des catégories détaillées...");
+}
+
+// Conseils en fonction du niveau de score
+export function afficherRecommendations(scoreClass) {
+  // À compléter selon ta logique métier
+  console.log("📌 Recommandations pour :", scoreClass);
+}
+
+// Génèration du graphique selon le type choisi
+const typesGraphiques = {
+  camembert: (correct, incorrect, total, container) =>
+    Graphiques.afficherCamembertReponses(correct, incorrect, total, container),
+  diagramme: (correct, incorrect, total, container) => {
+    const repartition = calculerRepartition(correct, incorrect, total, container);
+    Graphiques.afficherDiagrammeReponses(repartition, container);
+  },
+  jauge: (correct, incorrect, total, container) =>
+    Graphiques.afficherJaugeReponses(correct, incorrect, total, container)
+};
+
+// Affichage graphique
+export function afficherGraphique(type, correct, incorrect, total, containerId = "conteneurGraphique") {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  const render = typesGraphiques[type];
+  if (render) {
+    render(correct, incorrect, total, container);
+  } else {
+    console.warn("Type de graphique non reconnu :", type);
+    container.textContent = "Type de graphique non reconnu.";
+  }
+}
+
+// Message d’erreur si graphique impossible à charger
+export function afficherErreurGraphique(message) {
+  const container = document.getElementById("conteneurGraphique");
+  container.textContent = message;
 }

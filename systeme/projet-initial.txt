@@ -55,11 +55,17 @@
             <div id="questionsContainer">
             </div>
 
-            <section class="results" id="results">
-                <h2 class="titreResultat" id="titreResultat"></h2>
-                <div class="conteneurGraphique" id="conteneurGraphique"></div>
-                <div class="resumeTexte" id="resumeTexte"></div>
-            </section>
+            <div class="results" id="results">
+                <h2>Résultats du Quiz</h2>
+                <div class="score" id="finalScore">0/0</div>
+                <p id="scoreMessage"></p>
+                
+                <div class="category-breakdown" id="categoryBreakdown"></div>
+                
+                <div class="recommendations" id="recommendations"></div>
+                
+                <button class="btn btn-primary">Recommencer le quiz</button>
+            </div>
 
             <div class="controls">
                 <button class="btn btn-secondary" id="prevBtn" disabled>Précédent</button>
