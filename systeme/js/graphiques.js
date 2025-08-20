@@ -48,6 +48,7 @@ export function afficherCamembertReponses(correct, incorrect, total, container) 
 export function afficherJaugeReponses(correctAnswerPercent, container) {
     const canvas = document.createElement('canvas');
     canvas.id = 'resultChart';
+
     container.appendChild(canvas);
 
     const ctx = canvas.getContext('2d');
@@ -62,9 +63,12 @@ export function afficherJaugeReponses(correctAnswerPercent, container) {
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             rotation: -90, // Commence à 180°
             circumference: 180, // Affiche une demi-jauge
             cutout: '70%', // Épaisseur de la jauge
+
             plugins: {
                 legend: {
                     display: false
