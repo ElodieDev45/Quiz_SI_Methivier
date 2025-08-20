@@ -168,31 +168,34 @@ export async function displayResults() {
     scoreClass = "poor";
   }
 
-  // 4. Appel des fonctions d'affichage
+  // 4. Appel des fonctions d'affichage 
   Affichage.afficherSectionResultats(scoreClass);
   Affichage.afficherTitreResultat(scoreClass);
   Affichage.afficherIdentite(titre, prenom, nom);
-  Affichage.afficherResume(finalScore, totalQuestions, scoreClass, message);
 
   // 5. Afficher les détails
   Affichage.afficherCategoryBreakdown();
   Affichage.afficherRecommendations(scoreClass);
 
   // 6. Afficher le graphique selon config.json
+  let typeGraphique = "camembert"; // valeur par défaut
+
   try {
     const response = await fetch('./config.json');
     const config = await response.json();
-    let typeGraphique = config["graphique-resultats"]?.toLowerCase();
+    const type = config["graphique-resultats"]?.toLowerCase();
 
-    if (!typeGraphique || !["camembert", "jauge", "diagramme"].includes(typeGraphique)) {
+    if (["camembert", "jauge", "diagramme"].includes(type)) {
+      typeGraphique = type; // ✅ on remplace la valeur par défaut
+    } else {
       console.warn("⚠️ Type de graphique non reconnu ou absent dans config.json. Utilisation du type par défaut : 'camembert'.");
-      typeGraphique = "camembert";
     }
 
     const correct = finalScore;
     const incorrect = totalQuestions - correct;
 
     Affichage.afficherGraphique(typeGraphique, correct, incorrect, totalQuestions, correctAnswerPercent);
+    Affichage.afficherResume(finalScore, totalQuestions, scoreClass, message, correctAnswerPercent, typeGraphique);
   } catch (error) {
     console.error("❌ Erreur lors du chargement du graphique :", error);
     Affichage.afficherErreurGraphique("Erreur lors du chargement du graphique.");
