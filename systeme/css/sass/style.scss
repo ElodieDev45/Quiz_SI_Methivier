@@ -258,7 +258,8 @@ body::before {
     justify-content: center;
 
     #resultChart{ 
-    margin: variables.$padding-L variables.$padding-XL;
+    margin: 5% 10%;
+    padding: 0;
     }
   }
 
@@ -296,7 +297,7 @@ body::before {
   .resumeTexte {
     text-align: center;
     padding: variables.$padding-XS 0 variables.$padding-S 0;
-    @include mixins.transparent-background(variables.$dark-blue-gradient-start,25%);
+    @include mixins.transparent-background(variables.$dark-blue-gradient-start,30%);
 
     .score{
       font-size: 2.5em;

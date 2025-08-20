@@ -277,7 +277,8 @@ body::before {
   justify-content: center;
 }
 .results .conteneurGraphique #resultChart {
-  margin: 50px 80px;
+  margin: 5% 10%;
+  padding: 0;
 }
 .results.active {
   display: block;
@@ -317,7 +318,7 @@ body::before {
 .results .resumeTexte {
   text-align: center;
   padding: 10px 0 20px 0;
-  background-color: rgba(44, 62, 80, 0.25);
+  background-color: rgba(44, 62, 80, 0.3);
 }
 .results .resumeTexte .score {
   font-size: 2.5em;
