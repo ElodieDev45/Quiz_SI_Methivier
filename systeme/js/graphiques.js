@@ -73,7 +73,7 @@ export function afficherJaugeReponses(correctAnswerPercent, container) {
                     enabled: false
                 },
                 title: {
-                    display: true,
+                    display: false,
                     text: `Score : ${correctAnswerPercent}%`,
                     font: {
                         size: 20,
