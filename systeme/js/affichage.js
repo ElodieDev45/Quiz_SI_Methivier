@@ -149,10 +149,26 @@ export function afficherIdentite(titre, prenom, nom) {
 }
 
 // Résumé score et affichage message personnalisé
-export function afficherResume(score, totalQuestions, scoreClass, message) {
+export function afficherResume(score, totalQuestions, scoreClass, message, correctAnswerPercent, typeGraphique) {
   const resumeElement = document.getElementById("resumeTexte");
+  
+  // Déclaration de la variable qui contiendra le HTML du score + typeGraphique
+  let scoreHTML = "";
+
+  // Choix du contenu selon le type de graphique
+  if (typeGraphique === "camembert") {
+    scoreHTML = `<p class="score ${scoreClass}">Score : ${score}/${totalQuestions}</p>`;
+  } else if (typeGraphique === "jauge") {
+    scoreHTML = `<p class="score ${scoreClass}">Réussite : ${correctAnswerPercent}%</p>`;
+  } else if (typeGraphique === "diagramme") {
+    scoreHTML = `<p class="score ${scoreClass}">Répartition : ${score} bonnes réponses</p>`;
+  } else {
+    scoreHTML = `<p> Score : inexistant </p>`;
+  }
+
+  // DOM
   resumeElement.innerHTML = `
-    <p class="score ${scoreClass}">Score : ${score}/${totalQuestions}</p>
+    ${scoreHTML}
     <p class="message">${message}</p>
   `;
 }
