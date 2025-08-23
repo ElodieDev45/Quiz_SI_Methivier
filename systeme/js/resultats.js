@@ -1,6 +1,7 @@
 import * as Affichage from './affichage.js';
 import * as Donnees from './donnees.js';
 import * as Navigation from './navigation.js'; // Pour le restart
+import * as LocalStorage from './localStorage.js';
 
 export let score = 0; // Score global du quiz
 
@@ -84,69 +85,11 @@ export function restartQuiz() {
 }
 
 
-// Sauvegarde réponse utilisateur
-export function saveAnswer(questionId, selectedOption) {
-  // 1. Récupère les données d'identité
-  const quizData = JSON.parse(localStorage.getItem("quizData")) || {};
-  const userInfo = quizData.identite || {
-    titre: "",
-    prenom: "",
-    nom: ""
-  };
-
-  // 2. Récupère les réponses existantes
-  const previousAnswers = JSON.parse(localStorage.getItem("userAnswers"))?.reponses || [];
-
-  // 3. Trouve la question correspondante
-  const question = Donnees.quizData.find(q => q.id === questionId);
-  const correctAnswer = question?.correctAnswer || null;
-
-  // 4. Met à jour ou ajoute la réponse
-  const existingIndex = previousAnswers.findIndex(item => item.id === questionId);
-
-  // 5. Récupère la catégorie de la catégorie de la question
-  const category = question?.category || "Autres";
-
-  const newAnswerObj = {
-    id: questionId,
-    answer: selectedOption,
-    correctAnswer: correctAnswer,
-    category: category
-  };
-
-  if (existingIndex !== -1) {
-    previousAnswers[existingIndex] = newAnswerObj;
-  } else {
-    previousAnswers.push(newAnswerObj);
-  }
-
-  // 6. Crée l’objet global à enregistrer
-  const finalAnswers = {
-    titre: userInfo.titre,
-    prenom: userInfo.prenom,
-    nom: userInfo.nom,
-    totalQuestions: Donnees.totalQuestions,
-    reponses: previousAnswers
-  };
-
-  // 7. Enregistre dans le localStorage
-  localStorage.setItem("userAnswers", JSON.stringify(finalAnswers));
-
-  // 8. Pour suivre le processus
-  console.log(`✅ Réponse enregistrée : ${questionId} → ${selectedOption}`);
-  console.log("🎯 Réponse correcte attendue :", correctAnswer);
-  console.log("📊 Total de questions :", Donnees.totalQuestions);
-  console.log("🗂️ Données complètes enregistrées dans localStorage (userAnswers):", finalAnswers);
-}
-
 // Affichage résultats
 export async function displayResults() {
   // 1. Récupérer les données du localStorage
-  const userData = JSON.parse(localStorage.getItem("userAnswers"));
-  if (!userData || !userData.reponses) {
-    console.error("❌ Données utilisateur manquantes ou incomplètes.");
-    return;
-  }
+  const userData = LocalStorage.getUserAnswers();
+  if (!userData) return;
 
   const { titre, prenom, nom, totalQuestions, reponses } = userData;
 
@@ -193,8 +136,9 @@ export async function displayResults() {
 
     const correct = finalScore;
     const incorrect = totalQuestions - correct;
+    const repartition = LocalStorage.resultAnswersCounts(reponses);
 
-    Affichage.afficherGraphique(typeGraphique, correct, incorrect, totalQuestions, correctAnswerPercent);
+    Affichage.afficherGraphique(typeGraphique, correct, incorrect, totalQuestions, correctAnswerPercent, repartition);
     Affichage.afficherResume(finalScore, totalQuestions, scoreClass, message, correctAnswerPercent, typeGraphique);
   } catch (error) {
     console.error("❌ Erreur lors du chargement du graphique :", error);

@@ -1,6 +1,7 @@
 import * as Affichage from './affichage.js';
 import * as Donnees from './donnees.js';
 import * as Resultats from './resultats.js';
+import * as LocalStorage from './localStorage.js';
 
 export let currentQuestionIndex = 0;
 
@@ -62,7 +63,7 @@ function enregistrerReponse() {
     }
 
     const currentQuestionId = Donnees.quizData[currentQuestionIndex].id;
-    Resultats.saveAnswer(currentQuestionId, selectedOption.value);
+    LocalStorage.saveAnswer(currentQuestionId, selectedOption.value);
     return true;
 }
 
