@@ -2,6 +2,7 @@ import * as Navigation from './navigation.js';
 import * as Donnees from './donnees.js';
 import * as Resultats from './resultats.js';
 import * as Graphiques from './graphiques.js';
+import * as LocalStorage from './localStorage.js';
 
 // Fonction pour afficher les informations d'identité de l'utilisateur
 export function renderUserIdentity(identityData) {
@@ -190,7 +191,7 @@ const typesGraphiques = {
   camembert: (correct, incorrect, total, correctAnswerPercent, container) =>
     Graphiques.afficherCamembertReponses(correct, incorrect, total, container),
   diagramme: (correct, incorrect, total, correctAnswerPercent, container) => {
-    const repartition = calculerRepartition(correct, incorrect, total, container);
+    const repartition = LocalStorage.resultAnswersCounts();
     Graphiques.afficherDiagrammeReponses(repartition, container);
   },
   jauge: (correct, incorrect, total, correctAnswerPercent, container) =>
@@ -198,7 +199,7 @@ const typesGraphiques = {
 };
 
 // Affichage graphique
-export function afficherGraphique(type, correct, incorrect, total, correctAnswerPercent, containerId = "conteneurGraphique") {
+export function afficherGraphique(type, correct, incorrect, total, correctAnswerPercent, repartition, containerId = "conteneurGraphique") {
   const container = document.getElementById(containerId);
   container.innerHTML = "";
 
