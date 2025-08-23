@@ -1,4 +1,6 @@
-// main.js
+// main.js – Point d’entrée principal du projet : initialise le quiz et orchestre les modules
+
+// Import direct de 4 modules sur 6 : graphiques.js et localStorage.js sont appelés indirectement via ces imports
 import * as Donnees from './donnees.js';
 import * as Affichage from './affichage.js';
 import * as Navigation from './navigation.js';

@@ -1,14 +1,17 @@
-import * as Affichage from './affichage.js';
-import * as Resultats from './resultats.js';
+// donnees.js - Charge, structure et exporte les données du questionnaire (questions, utilisateur, réponses)
 
-export let quizData = [];
+// Import des fonctions d'affichage pour mettre à jour l'interface utilisateur
+import * as Affichage from './affichage.js';
+
+// Structures de données exportées pour le questionnaire
 export let totalQuestions = 0;
 export let categoryScores = {};
 export let userAnswers = {};
 export let rawData = {};
+export let quizData = [];
 
-// données d'identité utilisateur
-//Objet qui stock les infos utilisateur
+
+// Objet contenant les informations d'identité et score null de l'utilisateur
 export const utilisateur = {
   identite: {
     titre: "",
@@ -18,14 +21,15 @@ export const utilisateur = {
   score: null,
   timestamp: null
 };
-// Fonction pour enregistrer les infos d'identité.
+
+// Enregistre et sauvegarde dans localStorage des infos d'identité utilisateur.
 export function enregistrerIdentite(titre, nom, prenom) {
   utilisateur.identite = { titre, nom, prenom };
   utilisateur.timestamp = new Date().toISOString();
   localStorage.setItem("quizData", JSON.stringify(utilisateur));
 }
 
-// Fonction pour charger les questions depuis questions.json
+// Charge les questions depuis fichier JSON, initialise les scores par catégorie et met à jour l'affichage
 export async function loadQuestions() {
     try {
         const response = await fetch('./questions.json'); // fichier à laisser dans dossier "systeme"
@@ -74,7 +78,7 @@ export async function loadQuestions() {
     }
 }
 
-// Fonction pour logguer un résumé des réponses utilisateur dans la console
+// Affiche un résumé formaté des réponses utilisateur dans la console
 export function logQuizSummaryToConsole() {
     const summary = [];
     quizData.forEach((question, index) => {
@@ -99,7 +103,7 @@ export function logQuizSummaryToConsole() {
     console.groupEnd();
 }
 
-// Chargement automatique du fichier config.json
+// Personalise le titre et la description du questionnaire via le fichier config.json 
 document.addEventListener("DOMContentLoaded", function () {
     fetch("config.json")
         .then(response => response.json())

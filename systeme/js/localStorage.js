@@ -1,9 +1,11 @@
+// localStorage.js - Sauvegarde l'identité, les réponses de l'utilisateur (avec calcul des choix de réponse) de l'utilisateur dans le localStorage
+
+// import des données du questionnaire pour accès aux questions et métadonnées
 import * as Donnees from './donnees.js';
 
-
-// Sauvegarde les réponses de l'utilisateur dans le localStorage
+// Sauvegarde les réponses de l'utilisateur pour une question donnée, avec validation et catégorisation
 export function saveAnswer(questionId, selectedOption) {
-  // 1. Récupère les information d'identité de l'utilisateur depuis le localStorage
+  // 1. Récupère les information d'identité de l'utilisateur
   const quizData = JSON.parse(localStorage.getItem("quizData")) || {};
   const userInfo = quizData.identite || {
     titre: "",
@@ -18,7 +20,7 @@ export function saveAnswer(questionId, selectedOption) {
   const question = Donnees.quizData.find(q => q.id === questionId);
   const correctAnswer = question?.correctAnswer || null;
 
-  // 4. Met à jour ou ajoute la réponse
+  // 4. Met à jour la réponse existante ou ajoute une nouvelle entrée
   const existingIndex = previousAnswers.findIndex(item => item.id === questionId);
 
   // 5. Récupère la catégorie associée à la question
@@ -37,7 +39,7 @@ export function saveAnswer(questionId, selectedOption) {
     previousAnswers.push(newAnswerObj);
   }
 
-  // 6. Crée l’objet complet à enregistrer dans le localStorage
+  // 6. Prépare et sauvegarde l'objet final dans le localStorage
   const finalAnswers = {
     titre: userInfo.titre,
     prenom: userInfo.prenom,
@@ -56,7 +58,7 @@ export function saveAnswer(questionId, selectedOption) {
   console.log("🗂️ Données complètes enregistrées dans localStorage (userAnswers):", finalAnswers);
 }
 
-// Récupère l'objet complet des réponses utilisateur depuis localStorage
+// Récupère les réponses utilisateur depuis localStorage ou retourne null si données absentes
 export function getUserAnswers(){
     const userData = JSON.parse(localStorage.getItem("userAnswers"));
     if (!userData || !userData.reponses) {
@@ -66,22 +68,22 @@ export function getUserAnswers(){
   return userData;
 }
 
-// Crée un objet avec la liste du total de chaque choix de réponse (a=2, b=5, etc...)
+// Calcul nombre total réponses par option : a=2, b=5, etc...
 export function resultAnswersCounts(reponses = null) {
-    // si aucun tableau fourni, récupération des réponses depuis localStorage
-    if (!reponses){
-        const localStorageData = JSON.parse(localStorage.getItem("userAnswers"));
-        reponses = localStorageData?.reponses || [];
-    }
+  // si aucun tableau fourni, récupération automatique depuis localStorage
+  if (!reponses){
+      const localStorageData = JSON.parse(localStorage.getItem("userAnswers"));
+      reponses = localStorageData?.reponses || [];
+  }
 
-    const AnswersCounts = {};
+  const answersCounts = {};
 
-    reponses.forEach(item => {
-        const answer = item.answer;
-        if (answer) {
-        AnswersCounts[answer] = (AnswersCounts[answer] || 0) + 1;
-        }
-    });
+  reponses.forEach(item => {
+      const answer = item.answer;
+      if (answer) {
+      answersCounts[answer] = (answersCounts[answer] || 0) + 1;
+      }
+  });
 
-    return AnswersCounts;
+  return answersCounts;
 }
