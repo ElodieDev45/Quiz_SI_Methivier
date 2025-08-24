@@ -1,7 +1,8 @@
-@use "variables";
+@use 'variables';
 
 @use "sass:color";
 // _mixins.scss
+
 // PARAMETRES DU DEGRADE
 @mixin gradient-bg($start-color, $end-color) { 
     background: linear-gradient(135deg, $start-color 0%, $end-color 100%);
@@ -46,4 +47,16 @@
   border-radius: 0.5rem;
   text-align: center;
   color: $text-color;
+}
+
+// mixin pour utilisation des mediaQueries.
+// exp utilisation : @include media(mobile)
+@mixin media($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: #{variables.$breakpoint-mobile}) { @content; }
+  } @else if $breakpoint == tablet {
+    @media (max-width: #{variables.$breakpoint-tablet}) { @content; }
+  } @else if $breakpoint == portable {
+    @media (min-width: #{variables.$breakpoint-portable}) { @content; }
+  }
 }

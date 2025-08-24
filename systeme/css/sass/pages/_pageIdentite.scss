@@ -1,0 +1,55 @@
+@use '../fondamentaux/variables';
+@use '../fondamentaux/mixins';
+@use "sass:color";
+
+
+// ──────────────────────────────────
+// Page saisie identité utilisateur
+// ──────────────────────────────────
+// Bloc général Saisie Identité utilisateur 1ere page
+.identite-form {
+  @include mixins.transparent-background(variables.$light-background,40%);
+  padding: variables.$padding-M;
+  border-radius: variables.$border-radius-base;
+  box-shadow: variables.$box-shadow-medium;
+  max-width: 500px;
+  margin: variables.$padding-M auto variables.$padding-M auto;
+
+  // texte intro de la saisie d'identité
+  h2 {
+    text-align: center;
+    font-size: 1.6em;
+    margin-bottom: variables.$padding-S;
+    color: variables.$dark-color;
+  }
+
+  // ensemble des lignes de saisie
+  #identiteForm {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-weight: bold;
+      margin-top: variables.$padding-S;
+      margin-bottom: 5px;
+      color: variables.$dark-blue-gradient-start;
+      background: transparent;
+      padding: 6px 10px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    input,
+    select {
+      @include mixins.form-element-styles;
+      margin-bottom: variables.$padding-S;
+    }
+
+    button {
+      @include mixins.button-styles(variables.$primary-color, variables.$secondary-color);
+      margin-top: variables.$padding-S;
+      width: fit-content;
+      align-self: center;
+    }
+  }
+}

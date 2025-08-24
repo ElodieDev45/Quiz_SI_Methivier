@@ -1,0 +1,94 @@
+@use '../fondamentaux/variables';
+@use '../fondamentaux/mixins';
+@use "sass:color";
+
+// ——————————————————————————————
+// Page résultats avec graphique
+// ──────────────────────────────
+.results {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease;
+
+  //identité de l'utilisateur
+  .result-identity{
+    color: variables.$white-color;
+    font-size: 1.2em;
+  }
+
+  // Titre de la page
+  #titreResultat{
+    color: variables.$white-color;
+    font-size: 2.2em;
+    text-align: center;
+    padding: variables.$padding-M 0 0 0;
+  }
+
+  //graphique
+  .conteneurGraphique{
+    display: flex;
+    justify-content: center;
+
+    #resultChart{ 
+    margin: 5% 10%;
+    padding: 0;
+    }
+  }
+
+  &.active {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+    padding: 40px;
+  }
+
+  .controls{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn {
+    &-primary {
+      @include mixins.button-styles(variables.$dark-color, color.adjust(variables.$dark-color,$lightness: -5%));
+    }
+  }
+
+  // bloc d'annonce des résultats
+  .resumeTexte {
+    text-align: center;
+    padding: variables.$padding-XS 0 variables.$padding-S 0;
+    @include mixins.transparent-background(variables.$dark-blue-gradient-start,30%);
+
+    // affichage modulaire des scores
+    .score{
+      font-size: 2.5em;
+      font-weight: bold;
+      padding: 0 0 variables.$padding-XS 0;
+      // variation couleur pour score excellent
+      &.excellent {
+        color: variables.$excellent-score-color;
+      }
+      // variation couleur pour score bon
+      &.good {
+        color: variables.$good-score-color;
+      }
+      // variation couleur pour score moyen
+      &.poor {
+        color: variables.$poor-score-color;
+      }
+    }
+
+    // texte d'accompagnent résultats
+    .message{
+      font-size: 1.3em;
+      font-weight: normal;
+      color: white;
+    }
+  }
+}

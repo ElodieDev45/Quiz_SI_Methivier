@@ -1,5 +1,5 @@
-@use "mixins";
-@use "variables";
+@use 'mixins';
+@use 'variables';
 
 .error-message {
   @include mixins.message-style(

@@ -1,0 +1,50 @@
+@use '../fondamentaux/variables';
+@use '../fondamentaux/mixins';
+@use "sass:color";
+
+// ———————————————————————————————————————————————————————————
+// structure, du corps du questionnaire, commune à chaque page
+// ———————————————————————————————————————————————————————————
+
+// Conteneur du questionnaire
+.container {
+  max-width: variables.$max-width;
+  margin: 0 auto;
+  @include mixins.transparent-background(variables.$primary-color,65%);
+  border-radius: variables.$border-radius-base;
+  box-shadow: variables.$box-shadow-large;
+  overflow: hidden;
+
+  @include mixins.media(mobile) {
+    margin: 10px;
+  }
+}
+
+// ───────────────────────
+// Titre d'entête du Quiz
+// ───────────────────────
+// cadre
+.header {
+  @include mixins.gradient-bg(variables.$dark-blue-gradient-start, variables.$dark-blue-gradient-end);
+  color: variables.$white-color;
+  padding: variables.$padding-M;
+  text-align: center;
+
+  // titre du questionnaire
+  h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: 300;
+  }
+
+  // Texte d'introduction au questionnaire
+  p {
+    font-size: 1.1em;
+    opacity: 0.9;
+  }
+
+  @include mixins.media(mobile) {
+    padding: variables.$padding-S;
+  }
+}
+
