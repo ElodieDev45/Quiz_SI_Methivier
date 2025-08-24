@@ -217,6 +217,13 @@
   overflow: hidden;
   transition: opacity 0.3s ease;
 }
+.results.active {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+  padding: 40px;
+}
 .results .result-identity {
   color: white;
   font-size: 1.2em;
@@ -235,18 +242,11 @@
   margin: 5% 10%;
   padding: 0;
 }
-.results.active {
-  display: block;
-  visibility: visible;
-  opacity: 1;
-  height: auto;
-  padding: 40px;
-}
 .results .controls {
   display: flex;
   justify-content: flex-end;
 }
-.results .btn-primary {
+.results .controls .btn-primary {
   padding: 12px 30px;
   border: none;
   border-radius: 25px;
@@ -257,7 +257,7 @@
   color: white;
   background: linear-gradient(135deg, #2c3e50 0%, rgb(34.9516129032, 49.25, 63.5483870968) 100%);
 }
-.results .btn-primary:hover {
+.results .controls .btn-primary:hover {
   background: linear-gradient(135deg, rgb(25.9032258065, 36.5, 47.0967741935), rgb(16.8548387097, 23.75, 30.6451612903));
 }
 .results .resumeTexte {
