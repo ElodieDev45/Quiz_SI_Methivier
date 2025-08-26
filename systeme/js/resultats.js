@@ -61,35 +61,86 @@ export function restartQuiz() {
     // 3. Réinitialiser l'état de l'application
     Navigation.setCurrentQuestionIndex(0);
     Donnees.setUserAnswers({});
-    Donnees.resetCategoryScores(); // ← Cette fonction doit exister maintenant
     score = 0;
 
-    // 4. Cacher la section résultats et réafficher le formulaire d'identité
-    document.getElementById('results').classList.remove('active');
-    document.getElementById('identiteSection').style.display = 'block';
-    document.querySelector('.quiz-content').style.display = 'none';
+    // Réinitialiser les scores par catégorie
+    for (const category in Donnees.categoryScores) {
+        if (Donnees.categoryScores.hasOwnProperty(category)) {
+            Donnees.categoryScores[category].correct = 0;
+            Donnees.categoryScores[category].total = 0;
+        }
+    }
+
+    // 4. AFFICHER le formulaire d'identité et CACHER les autres sections
+    const identiteSection = document.getElementById('identiteSection');
+    if (identiteSection) {
+        identiteSection.style.display = 'block';
+    }
+    
+    const quizContent = document.querySelector('.quiz-content');
+    if (quizContent) {
+        quizContent.style.display = 'none';
+    }
+    
+    const resultsSection = document.getElementById('results');
+    if (resultsSection) {
+        resultsSection.classList.remove('active');
+    }
 
     // 5. Réinitialiser le formulaire d'identité
-    document.getElementById('identiteForm').reset();
+    const identiteForm = document.getElementById('identiteForm');
+    if (identiteForm) {
+        identiteForm.reset();
+    }
 
-    // 6. Nettoyer les affichages
-    document.getElementById('userIdentityContainer').innerHTML = '';
-    document.getElementById('categoryBreakdown').innerHTML = '';
-    document.getElementById('recommendations').innerHTML = '';
-    document.getElementById('conteneurGraphique').innerHTML = '';
-    document.getElementById('resumeTexte').innerHTML = '';
-    document.getElementById('titreResultat').textContent = '';
-    document.getElementById('titreResultat').className = '';
+    // 6. Nettoyer les affichages - AJOUT DES ÉLÉMENTS result-identity
+    const elementsToClear = [
+        'userIdentityContainer',
+        'categoryBreakdown', 
+        'recommendations',
+        'conteneurGraphique',
+        'resumeTexte'
+    ];
 
-    // 7. Réinitialiser la navigation
-    document.getElementById('nextBtn').style.display = 'block';
-    document.getElementById('resultBtn').style.display = 'none';
+    elementsToClear.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.innerHTML = '';
+        }
+    });
+
+    // 7. SUPPRIMER TOUS LES ÉLÉMENTS result-identity
+    const resultIdentityElements = document.querySelectorAll('.result-identity');
+    resultIdentityElements.forEach(element => {
+        element.remove();
+    });
+
+    const titreResultat = document.getElementById('titreResultat');
+    if (titreResultat) {
+        titreResultat.textContent = '';
+        titreResultat.className = '';
+    }
+
+   // 8. RÉINITIALISATION DE LA NAVIGATION
+    const nextBtn = document.getElementById('nextBtn');
+    const resultBtn = document.getElementById('resultBtn');
     
-    // 8. Mettre à jour les compteurs
-    Affichage.updateProgressBar();
-    Affichage.updateQuestionCounter();
+    if (nextBtn) {
+        nextBtn.style.display = 'block'; // Toujours afficher Suivant au redémarrage
+        nextBtn.disabled = true; // Désactiver jusqu'à sélection
+    }
+    
+    if (resultBtn) {
+        resultBtn.style.display = 'none'; // Cacher Résultats au redémarrage
+        resultBtn.disabled = true;
+    }
+    
+    // 9. FORCER LA MISE À JOUR DE LA NAVIGATION
     Affichage.updateNavigationButtons();
+    
+    console.log("✅ Quiz réinitialisé - Retour au formulaire d'identité");
 }
+
 // export function restartQuiz() {
 //     Navigation.currentQuestionIndex = 0;
 //     Donnees.userAnswers = {};
