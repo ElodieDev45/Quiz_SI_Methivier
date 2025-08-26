@@ -5,7 +5,11 @@ import * as LocalStorage from './localStorage.js';
 
 export let currentQuestionIndex = 0;
 
-// 📌 Fonction pour gérer le formulaire d'identité utilisateur
+// modifie la valeur pour le restart
+export function setCurrentQuestionIndex(index) {
+    currentQuestionIndex = index;
+
+}// 📌 Fonction pour gérer le formulaire d'identité utilisateur
 export function gererFormulaireIdentite() {
     const identiteForm = document.getElementById("identiteForm");
     if (!identiteForm) return;
@@ -103,3 +107,5 @@ export function terminerQuiz() {
 
     Resultats.displayResults();
 }
+
+

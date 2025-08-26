@@ -124,3 +124,33 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("❌ Erreur de chargement du fichier config.json :", error);
         });
 });
+
+// Setters
+export function setUserAnswers(answers) {
+    userAnswers = answers;
+}
+
+export function setCategoryScores(scores) {
+    categoryScores = scores;
+}
+
+// Fonction pour réinitialiser les scores par catégorie
+export function resetCategoryScores() {
+    for (const category in categoryScores) {
+        if (categoryScores.hasOwnProperty(category)) {
+            categoryScores[category].correct = 0;
+            categoryScores[category].total = 0;
+        }
+    }
+}
+
+// Fonction pour initialiser les scores par catégorie (si nécessaire)
+export function initializeCategoryScores(quizData) {
+    quizData.forEach(q => {
+        if (!categoryScores[q.category]) {
+            categoryScores[q.category] = { correct: 0, total: 0 };
+        }
+    });
+}
+
+

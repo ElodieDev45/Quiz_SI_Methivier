@@ -26,7 +26,6 @@ export function displayCategoryBreakdown() {
     }
 }
 
-
 // Suggestions personnalisées
 export function displayRecommendations(scoreClass) {
     const recommendationsDiv = document.getElementById('recommendations');
@@ -47,42 +46,85 @@ export function displayRecommendations(scoreClass) {
     recommendationsDiv.appendChild(ul);
 }
 
-
 // Redémarrage complet du quiz
 export function restartQuiz() {
-    Navigation.currentQuestionIndex = 0;
-    Donnees.userAnswers = {};
-    score = 0;
-
-    document.getElementById('results').classList.remove('active');
-
-    // Supprimer précédent graphique si existant
-    const oldCanvas = document.getElementById('resultChart');
-    if (oldCanvas) oldCanvas.remove();
-
-    document.querySelector('.quiz-content').style.display = 'block';
-
-    Affichage.renderQuestion();
-    Affichage.updateProgressBar();
-    Affichage.updateQuestionCounter();
-    document.getElementById('nextBtn').style.display = 'block';
-    document.getElementById('resultBtn').style.display = 'none';
-    Affichage.updateNavigationButtons();
-
-    document.getElementById('finalScore').classList.remove('excellent', 'good', 'poor');
-    document.getElementById('scoreMessage').textContent = '';
-    document.getElementById('categoryBreakdown').innerHTML = '';
-    document.getElementById('recommendations').innerHTML = '';
-    document.getElementById('userIdentityContainer').innerHTML = '';
-
-    for (const category in Donnees.categoryScores) {
-        Donnees.categoryScores[category].correct = 0;
-        Donnees.categoryScores[category].total = 0;
+    // 1. Détruire le graphique Chart.js s'il existe
+    const chart = Chart.getChart('resultChart');
+    if (chart) {
+        chart.destroy();
     }
 
-    // ✅ Optionnel : réafficher le formulaire d'identité
+    // 2. Vider le localStorage des données du quiz
+    const keysToRemove = ['userAnswers', 'quizData'];
+    keysToRemove.forEach(key => localStorage.removeItem(key));
+
+    // 3. Réinitialiser l'état de l'application
+    Navigation.setCurrentQuestionIndex(0);
+    Donnees.setUserAnswers({});
+    Donnees.resetCategoryScores(); // ← Cette fonction doit exister maintenant
+    score = 0;
+
+    // 4. Cacher la section résultats et réafficher le formulaire d'identité
+    document.getElementById('results').classList.remove('active');
     document.getElementById('identiteSection').style.display = 'block';
+    document.querySelector('.quiz-content').style.display = 'none';
+
+    // 5. Réinitialiser le formulaire d'identité
+    document.getElementById('identiteForm').reset();
+
+    // 6. Nettoyer les affichages
+    document.getElementById('userIdentityContainer').innerHTML = '';
+    document.getElementById('categoryBreakdown').innerHTML = '';
+    document.getElementById('recommendations').innerHTML = '';
+    document.getElementById('conteneurGraphique').innerHTML = '';
+    document.getElementById('resumeTexte').innerHTML = '';
+    document.getElementById('titreResultat').textContent = '';
+    document.getElementById('titreResultat').className = '';
+
+    // 7. Réinitialiser la navigation
+    document.getElementById('nextBtn').style.display = 'block';
+    document.getElementById('resultBtn').style.display = 'none';
+    
+    // 8. Mettre à jour les compteurs
+    Affichage.updateProgressBar();
+    Affichage.updateQuestionCounter();
+    Affichage.updateNavigationButtons();
 }
+// export function restartQuiz() {
+//     Navigation.currentQuestionIndex = 0;
+//     Donnees.userAnswers = {};
+//     score = 0;
+
+//     document.getElementById('results').classList.remove('active');
+
+//     // Supprimer précédent graphique si existant
+//     const oldCanvas = document.getElementById('resultChart');
+//     if (oldCanvas) oldCanvas.remove();
+
+//     document.querySelector('.quiz-content').style.display = 'block';
+
+//     Affichage.renderQuestion();
+//     Affichage.updateProgressBar();
+//     Affichage.updateQuestionCounter();
+//     document.getElementById('nextBtn').style.display = 'block';
+//     document.getElementById('resultBtn').style.display = 'none';
+//     Affichage.updateNavigationButtons();
+
+//     document.getElementById('finalScore').classList.remove('excellent', 'good', 'poor');
+//     document.getElementById('scoreMessage').textContent = '';
+//     document.getElementById('categoryBreakdown').innerHTML = '';
+//     document.getElementById('recommendations').innerHTML = '';
+//     document.getElementById('userIdentityContainer').innerHTML = '';
+
+//     for (const category in Donnees.categoryScores) {
+//         Donnees.categoryScores[category].correct = 0;
+//         Donnees.categoryScores[category].total = 0;
+//     }
+
+//     // ✅ Optionnel : réafficher le formulaire d'identité
+//     document.getElementById('identiteSection').style.display = 'block';
+// }
+
 
 
 // Affichage résultats
