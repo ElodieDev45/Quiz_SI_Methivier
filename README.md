@@ -100,6 +100,8 @@ Ce projet propose un système complet pour **créer, modifier et suivre dynamiqu
 ├── README.md                           # Documentation principale
 ├── README.html                         # Version web du README, consultable hors GitHub
 ├── START.bat                           # Script de lancement du quiz (windows)
+├── index.html                          # 🎨 Page HTML affichée dans le navigateur par le serveur Flask
+
 
 └── systeme/                            # Dossier contenant tous les composants du projet
 
@@ -111,9 +113,6 @@ Ce projet propose un système complet pour **créer, modifier et suivre dynamiqu
     ├── requirements.txt                # Dépendances Python nécessaires au projet
     ├── package.json                    # Dépendances et configuration Node.js
     ├── package-lock.json               # Verrouillage des versions de modules
-
-    # 🎨 Interface utilisateur
-    ├── index.html                     # Page HTML affichée dans le navigateur par le serveur Flask
 
     # ⚙️ Données & Configuration
     ├── config.json                     # Fichier JSON de configuration globale (en-tête)
