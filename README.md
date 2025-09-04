@@ -16,7 +16,7 @@ Ce projet propose un système complet pour **créer, modifier et suivre dynamiqu
 
 *🔹 Pour répondre simplement au questionnaire :*  
 *Lancez le fichier `START.bat`*  
-***→ Le quiz s’ouvrira directement dans votre navigateur*** *(il s’agit de la page `projet.html`, rendue automatiquement par le serveur Flask (server.py).)*
+***→ Le quiz s’ouvrira directement dans votre navigateur*** *(il s’agit de la page `index.html`, rendue automatiquement par le serveur Flask (server.py).)*
 
 *🔹 Pour modifier le projet ou utiliser les scripts Python :*  
 *Ouvrez un terminal dans le dossier `systeme` et lancez `.\launch.ps1`*  
@@ -113,7 +113,7 @@ Ce projet propose un système complet pour **créer, modifier et suivre dynamiqu
     ├── package-lock.json               # Verrouillage des versions de modules
 
     # 🎨 Interface utilisateur
-    ├── projet.html                     # Page HTML affichée dans le navigateur par le serveur Flask
+    ├── index.html                     # Page HTML affichée dans le navigateur par le serveur Flask
 
     # ⚙️ Données & Configuration
     ├── config.json                     # Fichier JSON de configuration globale (en-tête)
@@ -357,9 +357,9 @@ Le projet utilise un mécanisme intelligent pour générer automatiquement le fi
 
 #### 💡 Utilité de `config.json`:
 
-- Il sert à alimenter le fichier `projet.html`pour :
+- Il sert à alimenter le fichier `index.html`pour :
 
-    - la balise `title` dans le `head` de `projet.html`
+    - la balise `title` dans le `head` de `index.html`
 
     - le contenu de `h1` et `p` dans le bloc `.header`
 
@@ -404,7 +404,7 @@ Comme précédement le projet utilise un mécanisme intelligent pour générer a
 
 #### 💡 Utilité de `question.json`:
 
-- Il sert à alimenter le fichier `projet.html`pour :
+- Il sert à alimenter le fichier `index.html`pour :
 
     - la **génération dynamique du contenu principal du quiz**, incluant les questions, les options de réponse et les catégories.
 

@@ -12,5 +12,5 @@ Handler = http.server.SimpleHTTPRequestHandler
 
 with socketserver.TCPServer(("", PORT), Handler) as httpd:
     print(f"🔌 Serveur local actif sur le port {PORT}")
-    webbrowser.open(f"http://localhost:{PORT}/projet.html")
+    webbrowser.open(f"http://localhost:{PORT}/index.html")
     httpd.serve_forever()

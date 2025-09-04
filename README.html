@@ -93,7 +93,7 @@
 <hr>
 <p><em>🔹 Pour répondre simplement au questionnaire :</em><br>
 <em>Lancez le fichier <code>START.bat</code></em><br>
-<strong><em>→ Le quiz s’ouvrira directement dans votre navigateur</em></strong> <em>(il s’agit de la page <code>projet.html</code>, rendue automatiquement par le serveur Flask (server.py).)</em></p>
+<strong><em>→ Le quiz s’ouvrira directement dans votre navigateur</em></strong> <em>(il s’agit de la page <code>index.html</code>, rendue automatiquement par le serveur Flask (server.py).)</em></p>
 <p><em>🔹 Pour modifier le projet ou utiliser les scripts Python :</em><br>
 <em>Ouvrez un terminal dans le dossier <code>systeme</code> et lancez <code>.\launch.ps1</code></em><br>
 <em>→ Cela activera l’environnement virtuel <code>.venv</code>, nécessaire à vos modifications</em></p>
@@ -180,7 +180,7 @@
     ├── package-lock.json               # Verrouillage des versions de modules
 
     # 🎨 Interface utilisateur
-    ├── projet.html                     # Page HTML affichée dans le navigateur par le serveur Flask
+    ├── index.html                     # Page HTML affichée dans le navigateur par le serveur Flask
 
     # ⚙️ Données &amp; Configuration
     ├── config.json                     # Fichier JSON de configuration globale (en-tête)
@@ -395,10 +395,10 @@ Il orchestre :</p>
 <h4>💡 Utilité de <code>config.json</code>:</h4>
 <ul>
 <li>
-<p>Il sert à alimenter le fichier <code>projet.html</code>pour :</p>
+<p>Il sert à alimenter le fichier <code>index.html</code>pour :</p>
 <ul>
 <li>
-<p>la balise <code>title</code> dans le <code>head</code> de <code>projet.html</code></p>
+<p>la balise <code>title</code> dans le <code>head</code> de <code>index.html</code></p>
 </li>
 <li>
 <p>le contenu de <code>h1</code> et <code>p</code> dans le bloc <code>.header</code></p>
@@ -451,7 +451,7 @@ Il orchestre :</p>
 <h4>💡 Utilité de <code>question.json</code>:</h4>
 <ul>
 <li>
-<p>Il sert à alimenter le fichier <code>projet.html</code>pour :</p>
+<p>Il sert à alimenter le fichier <code>index.html</code>pour :</p>
 <ul>
 <li>
 <p>la <strong>génération dynamique du contenu principal du quiz</strong>, incluant les questions, les options de réponse et les catégories.</p>
