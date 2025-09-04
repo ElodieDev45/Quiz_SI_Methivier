@@ -58,7 +58,7 @@ export function afficherJaugeReponses(correctAnswerPercent, container) {
             labels: ['Réussite', 'Manquant'],
             datasets: [{
                 data: [correctAnswerPercent, 100 - correctAnswerPercent],
-                backgroundColor: ['#4CAF50', '#E0E0E0'],
+                backgroundColor: ['#c5d321', '#E0E0E0'],
                 borderWidth: 0
             }]
         },
