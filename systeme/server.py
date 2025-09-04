@@ -6,7 +6,7 @@ import webbrowser
 PORT = 8000
 
 # Se positionner dans le bon dossier pour servir les fichiers HTML
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 Handler = http.server.SimpleHTTPRequestHandler
 

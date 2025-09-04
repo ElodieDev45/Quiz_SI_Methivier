@@ -32,7 +32,7 @@ export function enregistrerIdentite(titre, nom, prenom) {
 // Charge les questions depuis fichier JSON, initialise les scores par catégorie et met à jour l'affichage
 export async function loadQuestions() {
     try {
-        const response = await fetch('./questions.json'); // fichier à laisser dans dossier "systeme"
+        const response = await fetch('./systeme/questions.json'); // fichier à laisser dans dossier "systeme"
         console.log("📥 Réponse brute fetch :", response);
 
         if (!response.ok) {
@@ -105,7 +105,7 @@ export function logQuizSummaryToConsole() {
 
 // Personalise le titre et la description du questionnaire via le fichier config.json 
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("config.json")
+    fetch("systeme/config.json")
         .then(response => response.json())
         .then(data => {
             document.title = data["titre-principal"];

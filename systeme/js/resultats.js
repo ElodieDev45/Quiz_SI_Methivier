@@ -217,7 +217,7 @@ export async function displayResults() {
   let typeGraphique = "camembert"; // valeur par défaut
 
   try {
-    const response = await fetch('./config.json');
+    const response = await fetch('./systeme/config.json');
     const config = await response.json();
     const type = config["graphique-resultats"]?.toLowerCase();
 
