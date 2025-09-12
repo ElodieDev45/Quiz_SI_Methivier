@@ -8,6 +8,9 @@ app = Flask(__name__, static_folder='systeme', static_url_path='')
 from flask_cors import CORS
 CORS(app, resources={r"/submit": {"origins": "*"}})
 
+def normalize(s):
+    return ''.join(s.split()).lower()
+
 # 📁 Chemins
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 REPONSES_DIR = os.path.join(BASE_DIR, 'reponses')
@@ -39,8 +42,8 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     data = request.get_json()
-    nom = data.get('nom', '').strip().lower()
-    prenom = data.get('prenom', '').strip().lower()
+    nom = normalize(data.get('nom', ''))
+    prenom = normalize(data.get('prenom', ''))
 
     if not nom or not prenom:
         return jsonify({'status': 'error', 'message': 'Nom et prénom requis'}), 400
@@ -52,10 +55,12 @@ def submit():
     # 🔁 Remplacement si déjà existant
     updated = False
     for i, entry in enumerate(existing_data):
-        if entry.get('nom', '').strip().lower() == nom and entry.get('prenom', '').strip().lower() == prenom:
+        if (normalize(entry.get('nom', '')) == nom and
+            normalize(entry.get('prenom', '')) == prenom):
             existing_data[i] = data
             updated = True
             break
+
 
     if not updated:
         existing_data.append(data)
