@@ -31,7 +31,7 @@ def upload_to_dropbox(local_path):
 
 @app.route('/')
 def index():
-    return send_from_directory(app.static_folder, 'index.html')
+    return send_from_directory(os.path.abspath(os.path.dirname(__file__) + '/../'), 'index.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
