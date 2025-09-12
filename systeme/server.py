@@ -18,14 +18,26 @@ REPONSES_FILE = os.path.join(REPONSES_DIR, 'reponses.json')
 
 # 🔐 Token Dropbox (remplace par ton vrai token Dropbox)
 DROPBOX_TOKEN = os.getenv('DROPBOX_TOKEN')
-DROPBOX_PATH = '/reponses.json'
+DROPBOX_PATH = '/Reponses/reponses.json'
 
-# 🔧 Création du dossier et fichier si nécessaire
+# 🔧 Création du dossier local
 os.makedirs(REPONSES_DIR, exist_ok=True)
-if not os.path.exists(REPONSES_FILE):
-    with open(REPONSES_FILE, 'w', encoding='utf-8') as f:
-        json.dump([], f, indent=2, ensure_ascii=False)
 
+# 📥 Restauration depuis Dropbox si fichier absent ou vide
+def download_from_dropbox(local_path):
+    try:
+        dbx = dropbox.Dropbox(DROPBOX_TOKEN)
+        metadata, res = dbx.files_download(DROPBOX_PATH)
+        with open(local_path, 'wb') as f:
+            f.write(res.content)
+        print("📥 Fichier restauré depuis Dropbox")
+    except Exception as e:
+        print("⚠️ Erreur restauration Dropbox :", e)
+
+if not os.path.exists(REPONSES_FILE) or os.path.getsize(REPONSES_FILE) == 0:
+    download_from_dropbox(REPONSES_FILE)
+
+# 🔼 Envoi vers Dropbox
 def upload_to_dropbox(local_path):
     try:
         dbx = dropbox.Dropbox(DROPBOX_TOKEN)
@@ -60,7 +72,6 @@ def submit():
             existing_data[i] = data
             updated = True
             break
-
 
     if not updated:
         existing_data.append(data)
