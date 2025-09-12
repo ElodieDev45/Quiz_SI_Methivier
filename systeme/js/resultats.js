@@ -214,12 +214,13 @@ export async function displayResults() {
     };
 
     // 8. Envoi vers le serveur Flask (autorisé à chaque affichage)
+    console.log("Données envoyées :", resultat);
     fetch("https://quiz-si-methivier-back-end.onrender.com/submit", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(resultat)
     })
-    .then(response => response.json())
+    .then(reponses => reponses.json())
     .then(data => {
         if (data.status === 'updated') {
         alert("Vos réponses ont été mises à jour.");
