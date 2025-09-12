@@ -1,2 +1,2 @@
 #!/bin/bash
-python systeme/server.py
+python3 systeme/server.py
