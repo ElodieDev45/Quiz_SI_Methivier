@@ -6,7 +6,7 @@ import dropbox
 app = Flask(__name__, static_folder='systeme', static_url_path='')
 
 from flask_cors import CORS
-CORS(app)
+CORS(app, resources={r"/submit": {"origins": "*"}})
 
 # 📁 Chemins
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -46,7 +46,8 @@ def submit():
         return jsonify({'status': 'error', 'message': 'Nom et prénom requis'}), 400
 
     with open(REPONSES_FILE, 'r', encoding='utf-8') as f:
-        existing_data = json.load(f)
+        content = f.read()
+        existing_data = json.loads(content) if content.strip() else []
 
     # 🔁 Remplacement si déjà existant
     updated = False
