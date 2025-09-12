@@ -5,6 +5,9 @@ import dropbox
 
 app = Flask(__name__, static_folder='systeme', static_url_path='')
 
+from flask_cors import CORS
+CORS(app)
+
 # 📁 Chemins
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 REPONSES_DIR = os.path.join(BASE_DIR, 'reponses')
