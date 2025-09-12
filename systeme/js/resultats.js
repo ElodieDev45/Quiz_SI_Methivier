@@ -214,7 +214,7 @@ export async function displayResults() {
     };
 
     // 8. Envoi vers le serveur Flask (autorisé à chaque affichage)
-    fetch('https://TON-SERVEUR-RENDER.onrender.com/submit', {
+    fetch("https://quiz-si-methivier-back-end.onrender.com/submit", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(resultat)
