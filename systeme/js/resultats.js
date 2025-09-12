@@ -141,43 +141,6 @@ export function restartQuiz() {
     console.log("✅ Quiz réinitialisé - Retour au formulaire d'identité");
 }
 
-// export function restartQuiz() {
-//     Navigation.currentQuestionIndex = 0;
-//     Donnees.userAnswers = {};
-//     score = 0;
-
-//     document.getElementById('results').classList.remove('active');
-
-//     // Supprimer précédent graphique si existant
-//     const oldCanvas = document.getElementById('resultChart');
-//     if (oldCanvas) oldCanvas.remove();
-
-//     document.querySelector('.quiz-content').style.display = 'block';
-
-//     Affichage.renderQuestion();
-//     Affichage.updateProgressBar();
-//     Affichage.updateQuestionCounter();
-//     document.getElementById('nextBtn').style.display = 'block';
-//     document.getElementById('resultBtn').style.display = 'none';
-//     Affichage.updateNavigationButtons();
-
-//     document.getElementById('finalScore').classList.remove('excellent', 'good', 'poor');
-//     document.getElementById('scoreMessage').textContent = '';
-//     document.getElementById('categoryBreakdown').innerHTML = '';
-//     document.getElementById('recommendations').innerHTML = '';
-//     document.getElementById('userIdentityContainer').innerHTML = '';
-
-//     for (const category in Donnees.categoryScores) {
-//         Donnees.categoryScores[category].correct = 0;
-//         Donnees.categoryScores[category].total = 0;
-//     }
-
-//     // ✅ Optionnel : réafficher le formulaire d'identité
-//     document.getElementById('identiteSection').style.display = 'block';
-// }
-
-
-
 // Affichage résultats
 export async function displayResults() {
   // 1. Récupérer les données du localStorage
@@ -237,4 +200,36 @@ export async function displayResults() {
     console.error("❌ Erreur lors du chargement du graphique :", error);
     Affichage.afficherErreurGraphique("Erreur lors du chargement du graphique.");
   }
+
+    // 7. Préparer les données à envoyer
+    const resultat = {
+        titre,
+        prenom,
+        nom,
+        totalQuestions,
+        finalScore,
+        correctAnswerPercent,
+        reponses,
+        horodatage: new Date().toISOString()
+    };
+
+    // 8. Envoi vers le serveur Flask (autorisé à chaque affichage)
+    fetch('https://TON-SERVEUR-RENDER.onrender.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(resultat)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'updated') {
+        alert("Vos réponses ont été mises à jour.");
+        } else if (data.status === 'success') {
+        alert("Vos réponses ont été enregistrées.");
+        } else {
+        alert("Erreur : " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('❌ Erreur réseau :', error);
+    });
 }
