@@ -51,6 +51,10 @@ def upload_to_dropbox(local_path):
 def index():
     return send_from_directory(os.path.abspath(os.path.dirname(__file__) + '/../'), 'index.html')
 
+@app.route('/reponses.json')
+def get_json():
+    return send_from_directory(REPONSES_DIR, 'reponses.json', mimetype='application/json')    
+
 @app.route('/submit', methods=['POST'])
 def submit():
     data = request.get_json()
