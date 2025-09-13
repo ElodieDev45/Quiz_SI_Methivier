@@ -10,7 +10,6 @@ export let userAnswers = {};
 export let rawData = {};
 export let quizData = [];
 
-
 // Objet contenant les informations d'identité et score null de l'utilisateur
 export const utilisateur = {
   identite: {
@@ -152,5 +151,3 @@ export function initializeCategoryScores(quizData) {
         }
     });
 }
-
-

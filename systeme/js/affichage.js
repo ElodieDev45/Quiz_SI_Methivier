@@ -1,3 +1,6 @@
+// affichage.js - gère l'affichage du quiz et des résultats
+
+//imports des modules
 import * as Navigation from './navigation.js';
 import * as Donnees from './donnees.js';
 import * as Resultats from './resultats.js';

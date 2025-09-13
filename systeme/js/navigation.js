@@ -1,3 +1,6 @@
+// navigation.js – gestion du formulaire d'identité et de la navigation du quiz
+
+// import des modules
 import * as Affichage from './affichage.js';
 import * as Donnees from './donnees.js';
 import * as Resultats from './resultats.js';
@@ -38,6 +41,9 @@ export function gererFormulaireIdentite() {
         localStorage.setItem("userAnswers", JSON.stringify(storedAnswers));
 
         Affichage.renderUserIdentity(Donnees.utilisateur.identite); // Affichage identité
+
+        // Réveil silencieux du backend
+        navigator.sendBeacon('https://quiz-si-methivier-back-end.onrender.com/wake');
 
         // On passe au quiz après saisie
         document.getElementById("identiteSection").style.display = "none";
@@ -107,5 +113,3 @@ export function terminerQuiz() {
 
     Resultats.displayResults();
 }
-
-

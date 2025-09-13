@@ -11,16 +11,16 @@ CORS(app, resources={r"/submit": {"origins": "*"}})
 def normalize(s):
     return ''.join(s.split()).lower()
 
-# 📁 Chemins
+# Chemins locaux et Dropbox
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 REPONSES_DIR = os.path.join(BASE_DIR, 'reponses')
 REPONSES_FILE = os.path.join(REPONSES_DIR, 'reponses.json')
 DROPBOX_PATH = '/Reponses/reponses.json'
 
-# 🔧 Création du dossier local
+# Création du dossier local si nécessaire
 os.makedirs(REPONSES_DIR, exist_ok=True)
 
-# 🔐 Fonction pour générer un access_token à partir du refresh_token
+# Obtention d'un access_token à partir du refresh_token
 def get_dropbox_access_token():
     url = "https://api.dropboxapi.com/oauth2/token"
     data = {
@@ -35,7 +35,7 @@ def get_dropbox_access_token():
         print("⚠️ Impossible de récupérer le token Dropbox :", response.json())
     return token
 
-# 📥 Restauration depuis Dropbox si fichier absent ou vide
+# Téléchargement du fichier depuis Dropbox
 def download_from_dropbox(local_path):
     try:
         dbx = dropbox.Dropbox(get_dropbox_access_token())
@@ -46,10 +46,15 @@ def download_from_dropbox(local_path):
     except Exception as e:
         print("⚠️ Erreur restauration Dropbox :", e)
 
+# Restauration ou création du fichier si absent ou vide
 if not os.path.exists(REPONSES_FILE) or os.path.getsize(REPONSES_FILE) == 0:
-    download_from_dropbox(REPONSES_FILE)
+    try:
+        download_from_dropbox(REPONSES_FILE)
+    except:
+        with open(REPONSES_FILE, 'w', encoding='utf-8') as f:
+            json.dump([], f, indent=2, ensure_ascii=False)
 
-# 🔼 Envoi vers Dropbox
+# Envoi fichier vers Dropbox
 def upload_to_dropbox(local_path):
     try:
         dbx = dropbox.Dropbox(get_dropbox_access_token())
@@ -59,14 +64,22 @@ def upload_to_dropbox(local_path):
     except Exception as e:
         print("⚠️ Erreur Dropbox :", e)
 
+# Affiche l’interface du quiz (Route principale)
 @app.route('/')
 def index():
     return send_from_directory(os.path.abspath(os.path.dirname(__file__) + '/../'), 'index.html')
 
+# Accès direct au fichier JSON
 @app.route('/reponses.json')
 def get_json():
     return send_from_directory(REPONSES_DIR, 'reponses.json', mimetype='application/json')    
 
+# Réveil silencieux du backend
+@app.route('/wake', methods=['GET'])
+def wake():
+    return jsonify({'status': 'awake'})
+
+# Enregistrement des réponses
 @app.route('/submit', methods=['POST'])
 def submit():
     data = request.get_json()
@@ -76,11 +89,18 @@ def submit():
     if not nom or not prenom:
         return jsonify({'status': 'error', 'message': 'Nom et prénom requis'}), 400
 
+    # Vérifie que le dossier et le fichier existent
+    os.makedirs(REPONSES_DIR, exist_ok=True)
+    if not os.path.exists(REPONSES_FILE):
+        with open(REPONSES_FILE, 'w', encoding='utf-8') as f:
+            json.dump([], f, indent=2, ensure_ascii=False)
+
+    # Lecture du contenu existant
     with open(REPONSES_FILE, 'r', encoding='utf-8') as f:
         content = f.read()
         existing_data = json.loads(content) if content.strip() else []
 
-    # 🔁 Remplacement si déjà existant
+    # Remplacement si déjà existant
     updated = False
     for i, entry in enumerate(existing_data):
         if (normalize(entry.get('nom', '')) == nom and

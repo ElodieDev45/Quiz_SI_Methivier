@@ -1,3 +1,5 @@
+// graphiques.js – génère les différents types de graphiques pour les résultats du quiz
+
 // Génération du graphique Camembert d'après réponses correctes/incorrectes
 export function afficherCamembertReponses(correct, incorrect, total, container) {
     const canvas = document.createElement('canvas');
@@ -95,7 +97,6 @@ export function afficherJaugeReponses(correctAnswerPercent, container) {
     });
 }
 
-
 // Génération du graphique Diagramme d'après réponses correctes/incorrectes
 export function afficherDiagrammeReponses(repartition, container) {
     const canvas = document.createElement('canvas');
@@ -167,4 +168,3 @@ export function afficherDiagrammeReponses(repartition, container) {
         }
     });
 }
-

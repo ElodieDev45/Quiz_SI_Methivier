@@ -1,4 +1,4 @@
-// localStorage.js - Sauvegarde l'identité, les réponses de l'utilisateur (avec calcul des choix de réponse) de l'utilisateur dans le localStorage
+// localStorage.js - Sauvegarde l'identité, les réponses de l'utilisateur (avec calcul des choix de réponse) dans le localStorage
 
 // import des données du questionnaire pour accès aux questions et métadonnées
 import * as Donnees from './donnees.js';

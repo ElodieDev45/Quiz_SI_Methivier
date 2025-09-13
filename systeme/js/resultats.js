@@ -1,10 +1,12 @@
+// resultats.js – gère l'affichage des résultats, leur envoi au serveur et le redémarrage du quiz
+
+// iport des modules
 import * as Affichage from './affichage.js';
 import * as Donnees from './donnees.js';
 import * as Navigation from './navigation.js'; // Pour le restart
 import * as LocalStorage from './localStorage.js';
 
 export let score = 0; // Score global du quiz
-
 
 // Détail par catégorie
 export function displayCategoryBreakdown() {
