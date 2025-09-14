@@ -212,7 +212,7 @@ export async function displayResults() {
         finalScore,
         correctAnswerPercent,
         reponses,
-        horodatage: new Date().toISOString()
+        horodatageLocal: new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })
     };
 
     // 8. Envoi vers le serveur Flask (autorisé à chaque affichage)
